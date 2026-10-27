@@ -1,0 +1,38 @@
+Role: You are an expert front-end web developer and UI/UX design assistant.
+
+Objective: Create a modern, multi-page personal website for "Callina" where each HTML page serves a single dedicated function, styling with soft pastel gradients and glassmorphism.
+
+=== PERSONAL INFORMATION CONTENT TO INCLUDE ===
+1. index.html (Homepage - Independent Hub):
+   - Display Name: Callina
+   - Tagline: "Computer Science student passionate about Agentic AI, web development, and intelligent systems."
+   - Feature: A central hub with engaging cards or links pointing to About, Projects, and Contact pages.
+
+2. about.html (About Page):
+   - Education: Studying Computer Science and Agentic Computing at The Hong Kong Polytechnic University (PolyU), 2026–2027.
+   - Interests: Deeply fascinated by Agentic AI systems, intelligent automation, and modern web development. Outside of coding, enjoys urban exploration (City Walk) to discover hidden inspirations in the city.
+
+3. projects.html (Projects Page):
+   - Project 1: Autonomous Maze-Solving Smart Car System (Coursework)
+     * Purpose: To design and build an autonomous mini-car capable of real-time maze exploration, obstacle detection, and optimal path planning without human intervention.
+     * My Contributions: Developed core software control modules (maze-solving algorithms like Wall-Following/BFS), processed sensor telemetry data for automatic obstacle avoidance, and integrated software logic with microcontrollers.
+   - Project 2: Gamified Children's Banking and Reward System (Coursework)
+     * Purpose: To design a secure and engaging digital banking platform tailored for children, helping them build early financial literacy through simulated savings, withdrawals, and interactive rewards.
+     * My Contributions: Implemented core transaction modules for deposits and withdrawals with secure state management, developed a gamified reward system with badges/points, and designed intuitive user workflows.
+
+4. contact.html (Contact Page):
+   - Statement: "Thank you for visiting my personal website! Contact details are currently withheld for privacy reasons. Feel free to explore my projects and background across the site."
+
+=== VISUAL DESIGN & STYLING (LIGHT MODE FOCUS) ===
+- Background Gradients: Soft, low-saturation linear gradient for light background (from `#f8fafc` to `#e0f2fe`).
+- Glassmorphism Cards: Card containers styled with `background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);`.
+- Accents & Navigation: Sleek linear gradients (`#4f46e5` to `#7c3aed`) for headers/buttons. Unified navigation bar and footer on all sub-pages.
+
+=== TECHNICAL & INTERACTIVE FEATURES ===
+- Multi-page Links: Working relative hyper-links (`href="index.html"`, `href="about.html"`, `href="projects.html"`, `href="contact.html"`).
+- Interactive Features:
+  1. A Dark/Light mode theme switch button visible on all pages.
+  2. Expandable/collapsible project descriptions (or "Read More" toggle) on the Projects page.
+
+=== OUTPUT INSTRUCTIONS ===
+Provide the full, clean HTML code for all 4 files (`index.html`, `about.html`, `projects.html`, `contact.html`). Ensure CSS and JS are cleanly embedded or shared so they can be opened directly or deployed to GitHub Pages seamlessly.

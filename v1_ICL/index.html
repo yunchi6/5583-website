@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Callina - Virtual Desk Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            sand: { DEFAULT: '#faf8f5', dark: '#1c1815' },
+            espresso: { DEFAULT: '#3e2723', light: '#5d3a34', dark: '#f4efe8' },
+            caramel: { DEFAULT: '#d4a373', hover: '#bc8a5f', dark: '#e6b98d' },
+            screen: { DEFAULT: '#fffdfa', dark: '#28231f' },
+            desk: { DEFAULT: '#e8dec8', dark: '#120f0d' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    .desk-pattern {
+      background-color: #faf8f5;
+      background-image: radial-gradient(#d4a373 0.75px, transparent 0.75px);
+      background-size: 24px 24px;
+    }
+    .dark .desk-pattern {
+      background-color: #1a1613;
+      background-image: radial-gradient(#5d3a34 0.75px, transparent 0.75px);
+    }
+    .perspective-desk { perspective: 1000px; }
+    .monitor-shadow { box-shadow: 0 20px 40px -15px rgba(62, 39, 35, 0.25); }
+    .dark .monitor-shadow { box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7); }
+    .item-hover { transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .item-hover:hover { transform: translateY(-6px) scale(1.02); }
+  </style>
+</head>
+<body class="desk-pattern text-espresso transition-colors duration-300 min-h-screen flex flex-col justify-between">
+
+  <!-- Top Navigation Header -->
+  <header class="w-full bg-screen/90 dark:bg-screen-dark/90 backdrop-blur-md border-b border-caramel/30 sticky top-0 z-50 px-4 py-3 shadow-sm">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-2 font-bold text-xl text-espresso dark:text-espresso-dark">
+        <span class="w-3 h-3 rounded-full bg-caramel inline-block"></span>
+        <span>Callina<span class="text-caramel">.desk</span></span>
+      </a>
+      
+      <nav class="flex items-center space-x-1 sm:space-x-6">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-caramel/20 text-espresso dark:text-espresso-dark border border-caramel/40">Home</a>
+        <a href="about.html" class="px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-caramel/10 text-espresso/80 dark:text-espresso-dark/80 hover:text-espresso transition">About</a>
+        <a href="projects.html" class="px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-caramel/10 text-espresso/80 dark:text-espresso-dark/80 hover:text-espresso transition">Projects</a>
+        <a href="contact.html" class="px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-caramel/10 text-espresso/80 dark:text-espresso-dark/80 hover:text-espresso transition">Contact</a>
+        
+        <!-- Theme Switch Toggle -->
+        <button id="themeToggle" onclick="toggleTheme()" class="ml-2 p-2 rounded-full bg-caramel/10 hover:bg-caramel/20 text-espresso dark:text-espresso-dark transition border border-caramel/30" title="Toggle Mode">
+          <i id="themeIcon" class="fas fa-moon"></i>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Virtual Workspace Surface -->
+  <main class="max-w-6xl mx-auto px-4 py-8 flex-grow flex flex-col justify-center items-center w-full">
+    <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      
+      <!-- Left Desk Item: ID Card (Click to About) -->
+      <div class="lg:col-span-3 flex justify-center order-2 lg:order-1">
+        <a href="about.html" class="item-hover block w-64 bg-screen dark:bg-screen-dark p-5 rounded-2xl border-2 border-caramel/40 shadow-lg relative group cursor-pointer">
+          <!-- Lanyard Hole -->
+          <div class="w-12 h-2.5 bg-caramel/30 rounded-full mx-auto mb-4 border border-caramel/50 flex justify-center items-center">
+            <div class="w-4 h-1 bg-espresso/40 dark:bg-espresso-dark/40 rounded-full"></div>
+          </div>
+          <div class="text-center">
+            <div class="w-20 h-20 rounded-full bg-caramel/20 border-2 border-caramel mx-auto flex items-center justify-center text-caramel mb-3 group-hover:scale-105 transition">
+              <i class="fas fa-[#fa-user-graduate] fa-user-graduate text-3xl"></i>
+            </div>
+            <span class="inline-block px-2 py-0.5 text-xs font-bold bg-caramel/20 text-espresso dark:text-espresso-dark rounded-md mb-1">ABOUT ME</span>
+            <h3 class="font-bold text-lg text-espresso dark:text-espresso-dark">Callina</h3>
+            <p class="text-xs text-espresso/70 dark:text-espresso-dark/70 mt-1">CS & Agentic AI Hobbyist & Explorer</p>
+            <div class="mt-4 pt-3 border-t border-caramel/20 flex items-center justify-between text-xs font-semibold text-caramel">
+              <span>View Profile</span>
+              <i class="fas fa-arrow-right group-hover:translate-x-1 transition"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Central Monitor Screen (Absolute Hero Focus) -->
+      <div class="lg:col-span-6 order-1 lg:order-2 flex flex-col items-center">
+        <!-- Monitor Frame -->
+        <div class="w-full bg-[#3e2723] dark:bg-[#120f0d] p-3 sm:p-5 rounded-3xl border-4 border-[#2b1b18] monitor-shadow relative">
+          <!-- Monitor Camera -->
+          <div class="w-2.5 h-2.5 bg-caramel/40 rounded-full mx-auto mb-3 border border-espresso/60"></div>
+          
+          <!-- Inner Monitor Display -->
+          <div class="bg-screen dark:bg-screen-dark rounded-2xl p-6 sm:p-8 border border-caramel/30 text-center relative overflow-hidden">
+            <!-- Screen Header Bar -->
+            <div class="flex justify-between items-center pb-4 mb-4 border-b border-caramel/20 text-xs text-espresso/60 dark:text-espresso-dark/60">
+              <div class="flex space-x-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-400 inline-block"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-yellow-400 inline-block"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-green-400 inline-block"></span>
+              </div>
+              <span class="font-mono text-[11px]"><i class="fas fa-terminal mr-1"></i>callina@virtual-workspace:~</span>
+            </div>
+
+            <!-- Main Intro Content -->
+            <div class="space-y-4">
+              <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-caramel/15 text-espresso dark:text-espresso-dark border border-caramel/30">
+                <span class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span> Open for Collaborations
+              </div>
+              
+              <h1 class="text-3xl sm:text-4xl font-extrabold text-espresso dark:text-espresso-dark tracking-tight">
+                Hello, I'm <span class="text-caramel">Callina</span>
+              </h1>
+              
+              <p class="text-sm sm:text-base text-espresso/80 dark:text-espresso-dark/80 max-w-md mx-auto leading-relaxed">
+                Computer Science student passionate about Agentic AI, web development, and intelligent systems.
+              </p>
+
+              <!-- Interactive Tech Stack Pills -->
+              <div class="pt-2">
+                <p class="text-xs uppercase tracking-wider font-bold text-caramel mb-2">Core Tech Stack</p>
+                <div class="flex flex-wrap justify-center gap-1.5 text-xs">
+                  <span class="px-2.5 py-1 rounded-md bg-caramel/10 border border-caramel/30 text-espresso dark:text-espresso-dark font-mono">Agentic Frameworks</span>
+                  <span class="px-2.5 py-1 rounded-md bg-caramel/10 border border-caramel/30 text-espresso dark:text-espresso-dark font-mono">Python / C++</span>
+                  <span class="px-2.5 py-1 rounded-md bg-caramel/10 border border-caramel/30 text-espresso dark:text-espresso-dark font-mono">Web Dev</span>
+                  <span class="px-2.5 py-1 rounded-md bg-caramel/10 border border-caramel/30 text-espresso dark:text-espresso-dark font-mono">Algorithms</span>
+                </div>
+              </div>
+
+              <!-- Quick Monitor Action Links -->
+              <div class="pt-4 flex justify-center gap-3">
+                <a href="projects.html" class="px-4 py-2 bg-caramel hover:bg-caramel-hover text-white rounded-xl text-xs font-bold transition shadow-md flex items-center space-x-1.5">
+                  <i class="fas fa-folder-open"></i><span>Explore Work</span>
+                </a>
+                <a href="contact.html" class="px-4 py-2 bg-caramel/15 hover:bg-caramel/25 text-espresso dark:text-espresso-dark border border-caramel/40 rounded-xl text-xs font-bold transition flex items-center space-x-1.5">
+                  <i class="fas fa-envelope"></i><span>Get in Touch</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Monitor Stand -->
+        <div class="w-20 h-8 bg-[#3e2723] dark:bg-[#120f0d] border-x-2 border-[#2b1b18]"></div>
+        <div class="w-40 h-3 bg-[#2b1b18] rounded-full shadow-md"></div>
+      </div>
+
+      <!-- Right Desk Item: Open Project Logbook (Click to Projects) -->
+      <div class="lg:col-span-3 flex justify-center order-3">
+        <a href="projects.html" class="item-hover block w-64 bg-[#fffdf0] dark:bg-screen-dark p-5 rounded-r-2xl rounded-l-md border-2 border-caramel/40 border-l-4 border-l-caramel shadow-lg relative group cursor-pointer">
+          <div class="absolute top-2 right-2 flex space-x-1">
+            <span class="w-2 h-4 bg-caramel/40 rounded-sm"></span>
+            <span class="w-2 h-4 bg-caramel rounded-sm"></span>
+          </div>
+          <div class="flex items-center space-x-2 text-caramel mb-2">
+            <i class="fas fa-book-open text-xl"></i>
+            <span class="text-xs font-bold uppercase tracking-wider">Logbook</span>
+          </div>
+          <h3 class="font-bold text-lg text-espresso dark:text-espresso-dark mb-1">Project Logs</h3>
+          <p class="text-xs text-espresso/70 dark:text-espresso-dark/70 mb-3 line-clamp-2">
+            Interactive showcase: Autonomous Maze Smart Car & Children's Banking App.
+          </p>
+          <div class="space-y-1.5 text-[11px] font-mono text-espresso/80 dark:text-espresso-dark/80 bg-caramel/10 p-2 rounded border border-caramel/20">
+            <div class="flex items-center"><i class="fas fa-chevron-right text-[9px] text-caramel mr-1.5"></i>Smart Car Maze Solver</div>
+            <div class="flex items-center"><i class="fas fa-chevron-right text-[9px] text-caramel mr-1.5"></i>Kids Rewards & Bank</div>
+          </div>
+          <div class="mt-4 pt-2 border-t border-caramel/20 flex items-center justify-between text-xs font-semibold text-caramel">
+            <span>Open Logbook</span>
+            <i class="fas fa-arrow-right group-hover:translate-x-1 transition"></i>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full bg-screen/80 dark:bg-screen-dark/80 border-t border-caramel/20 py-4 px-4 text-center text-xs text-espresso/60 dark:text-espresso-dark/60">
+    <p>© 2026 Callina. Warm Sand & Espresso Desk Environment.</p>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const icon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        icon.className = 'fas fa-moon';
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        icon.className = 'fas fa-sun';
+      }
+    }
+    
+    // Initialize Theme
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+      document.getElementById('themeIcon').className = 'fas fa-sun';
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.getElementById('themeIcon').className = 'fas fa-moon';
+    }
+  </script>
+</body>
+</html>

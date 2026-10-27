@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects - Callina Logbook</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            sand: { DEFAULT: '#faf8f5', dark: '#1c1815' },
+            espresso: { DEFAULT: '#3e2723', light: '#5d3a34', dark: '#f4efe8' },
+            caramel: { DEFAULT: '#d4a373', hover: '#bc8a5f', dark: '#e6b98d' },
+            paper: { DEFAULT: '#fffdf0', dark: '#26211e' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    .desk-pattern {
+      background-color: #faf8f5;
+      background-image: radial-gradient(#d4a373 0.75px, transparent 0.75px);
+      background-size: 24px 24px;
+    }
+    .dark .desk-pattern {
+      background-color: #1a1613;
+      background-image: radial-gradient(#5d3a34 0.75px, transparent 0.75px);
+    }
+    .logbook-shadow { box-shadow: 0 25px 50px -12px rgba(62, 39, 35, 0.25); }
+    .dark .logbook-shadow { box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8); }
+    .tab-active { background-color: #d4a373; color: white; border-color: #bc8a5f; }
+  </style>
+</head>
+<body class="desk-pattern text-espresso transition-colors duration-300 min-h-screen flex flex-col justify-between">
+
+  <!-- Top Navigation Header -->
+  <header class="w-full bg-paper/90 dark:bg-paper-dark/90 backdrop-blur-md border-b border-caramel/30 sticky top-0 z-50 px-4 py-3 shadow-sm">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-2 font-bold text-xl text-espresso dark:text-espresso-dark">
+        <span class="w-3 h-3 rounded-full bg-caramel inline-block"></span>
+        <span>Callina<span class="text-caramel">.desk</span></span>
+      </a>
+      
+      <nav class="flex items-center space-x-1 sm:space-x-6">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-caramel/10 text-espresso/80 dark:text-espresso-dark/80 hover:text-espresso transition">Home</a>
+        <a href="about.html" class="px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-caramel/10 text-espresso/80 dark:text-espresso-dark/80 hover:text-espresso transition">About</a>
+        <a href="projects.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-caramel/20 text-espresso dark:text-espresso-dark border border-caramel/40">Projects</a>
+        <a href="contact.html" class="px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-caramel/10 text-espresso/80 dark:text-espresso-dark/80 hover:text-espresso transition">Contact</a>
+        
+        <button id="themeToggle" onclick="toggleTheme()" class="ml-2 p-2 rounded-full bg-caramel/10 hover:bg-caramel/20 text-espresso dark:text-espresso-dark transition border border-caramel/30" title="Toggle Mode">
+          <i id="themeIcon" class="fas fa-moon"></i>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Interactive Project Logbook Section -->
+  <main class="max-w-5xl mx-auto px-4 py-8 flex-grow w-full">
+    
+    <!-- Outer Logbook Cover Frame -->
+    <div class="bg-[#3e2723] dark:bg-[#120f0d] p-3 sm:p-6 rounded-3xl border-4 border-[#2b1b18] logbook-shadow relative">
+      
+      <!-- Binder Rings/Spine Decor (Top / Middle) -->
+      <div class="hidden sm:flex justify-between px-12 -mt-7 mb-2 z-20 relative">
+        <div class="w-4 h-8 bg-gradient-to-b from-gray-300 to-gray-500 rounded-full border border-gray-600 shadow"></div>
+        <div class="w-4 h-8 bg-gradient-to-b from-gray-300 to-gray-500 rounded-full border border-gray-600 shadow"></div>
+        <div class="w-4 h-8 bg-gradient-to-b from-gray-300 to-gray-500 rounded-full border border-gray-600 shadow"></div>
+        <div class="w-4 h-8 bg-gradient-to-b from-gray-300 to-gray-500 rounded-full border border-gray-600 shadow"></div>
+      </div>
+
+      <!-- Main Open Logbook Page Paper Surface -->
+      <div class="bg-paper dark:bg-paper-dark rounded-2xl p-4 sm:p-8 border border-caramel/40 min-h-[520px] relative flex flex-col md:flex-row gap-6">
+        
+        <!-- Left Side: Side-Index Navigation Tabs & Logbook Metadata -->
+        <div class="w-full md:w-1/4 flex flex-col justify-between border-b md:border-b-0 md:border-r border-caramel/30 pr-0 md:pr-6 pb-4 md:pb-0">
+          <div>
+            <div class="flex items-center space-x-2 text-caramel mb-4">
+              <i class="fas fa-book-journal-whills text-2xl"></i>
+              <h2 class="font-bold text-lg text-espresso dark:text-espresso-dark tracking-wide">Project Log</h2>
+            </div>
+            
+            <p class="text-xs text-espresso/70 dark:text-espresso-dark/70 mb-6">
+              Select an entry tab below to view detailed project logs, objectives, contributions, and visual diagrams.
+            </p>
+
+            <!-- Navigation Index Tabs -->
+            <div class="space-y-3">
+              <button id="tabBtn1" onclick="switchProject(1)" class="w-full text-left px-4 py-3 rounded-xl border border-caramel/40 font-semibold text-xs transition flex items-center justify-between tab-active shadow-sm">
+                <span><i class="fas fa-car mr-2"></i>Smart Car Maze</span>
+                <span class="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-white/20">LOG 01</span>
+              </button>
+
+              <button id="tabBtn2" onclick="switchProject(2)" class="w-full text-left px-4 py-3 rounded-xl border border-caramel/40 font-semibold text-xs text-espresso/80 dark:text-espresso-dark/80 hover:bg-caramel/10 transition flex items-center justify-between">
+                <span><i class="fas fa-piggy-bank mr-2"></i>Kids Banking</span>
+                <span class="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-caramel/20">LOG 02</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-caramel/20 text-[11px] text-espresso/60 dark:text-espresso-dark/60">
+            <i class="fas fa-tag mr-1 text-caramel"></i> Logbook Status: Verified Coursework
+          </div>
+        </div>
+
+        <!-- Right Side: Project Detailed Content Display -->
+        <div class="w-full md:w-3/4 flex-grow pl-0 md:pl-2">
+          
+          <!-- PROJECT 1: Smart Car Maze System -->
+          <div id="project1" class="block space-y-6">
+            <div class="flex flex-wrap justify-between items-start gap-2 pb-3 border-b border-caramel/20">
+              <div>
+                <span class="px-2.5 py-0.5 bg-caramel/20 text-caramel font-mono font-bold text-xs rounded-md">Coursework Project</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-espresso dark:text-espresso-dark mt-1">
+                  Autonomous Maze-Solving Smart Car System
+                </h2>
+              </div>
+              <span class="text-xs font-mono text-espresso/60 dark:text-espresso-dark/60"><i class="far fa-calendar mr-1"></i>Engineering Log</span>
+            </div>
+
+            <!-- Vector Diagram: Isometric 3D Maze Illustration -->
+            <div class="w-full bg-sand dark:bg-sand-dark rounded-xl p-4 border border-caramel/30 flex justify-center items-center">
+              <svg class="w-full max-w-md h-48" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Isometric Maze Grid Ground -->
+                <path d="M200 20 L380 100 L200 180 L20 100 Z" fill="#e8dec8" stroke="#d4a373" stroke-width="2"/>
+                
+                <!-- Maze Wall Blocks (Isometric) -->
+                <!-- Wall 1 -->
+                <path d="M140 70 L180 90 L180 110 L140 90 Z" fill="#bc8a5f" stroke="#3e2723" stroke-width="1.5"/>
+                <path d="M180 90 L220 70 L220 90 L180 110 Z" fill="#d4a373" stroke="#3e2723" stroke-width="1.5"/>
+                
+                <!-- Wall 2 -->
+                <path d="M220 110 L260 130 L260 150 L220 130 Z" fill="#bc8a5f" stroke="#3e2723" stroke-width="1.5"/>
+                <path d="M260 130 L300 110 L300 130 L260 150 Z" fill="#d4a373" stroke="#3e2723" stroke-width="1.5"/>
+
+                <!-- Path line (Dotted path solved) -->
+                <path d="M60 100 L120 130 L200 130 L200 90 L320 90" stroke="#22c55e" stroke-width="3" stroke-dasharray="4 4"/>
+
+                <!-- Mini Car at Start -->
+                <g transform="translate(45, 88)">
+                  <rect x="0" y="0" width="22" height="14" rx="4" fill="#3e2723"/>
+                  <circle cx="5" cy="14" r="3" fill="#120f0d"/>
+                  <circle cx="17" cy="14" r="3" fill="#120f0d"/>
+                  <path d="M4 3 H18" stroke="#d4a373" stroke-width="2"/>
+                  <text x="-5" y="-4" fill="#3e2723" font-size="10" font-weight="bold">START</text>
+                </g>
+
+                <!-- Treasure Chest / Destination -->
+                <g transform="translate(315, 75)">
+                  <rect x="0" y="5" width="24" height="16" rx="2" fill="#d4a373" stroke="#3e2723" stroke-width="1.5"/>
+                  <path d="M0 5 C0 0, 24 0, 24 5 Z" fill="#bc8a5f" stroke="#3e2723" stroke-width="1.5"/>
+                  <circle cx="12" cy="13" r="2" fill="#fffdfa"/>
+                  <text x="-5" y="-4" fill="#22c55e" font-size="10" font-weight="bold">GOAL</text>
+                </g>
+              </svg>
+            </div>
+
+            <!-- Content Sections -->
+            <div class="space-y-4 text-sm text-espresso/80 dark:text-espresso-dark/80">
+              <div>
+                <h3 class="font-bold text-espresso dark:text-espresso-dark text-base mb-1 flex items-center">
+                  <i class="fas fa-bullseye text-caramel mr-2"></i>Purpose & Overview
+                </h3>
+                <p class="leading-relaxed">
+                  To design and build an autonomous mini-car capable of real-time maze exploration, obstacle detection, and optimal path planning without human intervention.
+                </p>
+              </div>
+
+              <div>
+                <h3 class="font-bold text-espresso dark:text-espresso-dark text-base mb-1 flex items-center">
+                  <i class="fas fa-code-branch text-caramel mr-2"></i>My Key Contributions
+                </h3>
+                <ul class="list-disc list-inside space-y-1.5 pl-2">
+                  <li>Developed core software control modules implementing maze-solving algorithms (Wall-Following & Breadth-First Search).</li>
+                  <li>Processed sensor telemetry data in real-time for automatic obstacle avoidance.</li>
+                  <li>Integrated software logic with hardware microcontrollers for precise motor feedback loops.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROJECT 2: Gamified Children's Banking -->
+          <div id="project2" class="hidden space-y-6">
+            <div class="flex flex-wrap justify-between items-start gap-2 pb-3 border-b border-caramel/20">
+              <div>
+                <span class="px-2.5 py-0.5 bg-caramel/20 text-caramel font-mono font-bold text-xs rounded-md">Coursework Project</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-espresso dark:text-espresso-dark mt-1">
+                  Gamified Children's Banking & Reward System
+                </h2>
+              </div>
+              <span class="text-xs font-mono text-espresso/60 dark:text-espresso-dark/60"><i class="far fa-calendar mr-1"></i>UX/UI Log</span>
+            </div>
+
+            <!-- Vector Diagram: Digital Piggy Bank Illustration -->
+            <div class="w-full bg-sand dark:bg-sand-dark rounded-xl p-4 border border-caramel/30 flex justify-center items-center">
+              <svg class="w-full max-w-md h-48" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background Wallet Screen Frame -->
+                <rect x="80" y="20" width="240" height="160" rx="16" fill="#fffdfa" stroke="#d4a373" stroke-width="2"/>
+                <path d="M80 50 H320" stroke="#d4a373" stroke-width="1.5" stroke-dasharray="3 3"/>
+                
+                <!-- Piggy Bank Icon Body -->
+                <ellipse cx="200" cy="110" rx="45" ry="35" fill="#d4a373"/>
+                <!-- Ear -->
+                <path d="M170 85 L180 70 L190 82 Z" fill="#bc8a5f"/>
+                <!-- Snout -->
+                <ellipse cx="165" cy="110" rx="10" ry="8" fill="#bc8a5f"/>
+                <!-- Eye -->
+                <circle cx="185" cy="100" r="3" fill="#3e2723"/>
+                <!-- Legs -->
+                <rect x="175" y="140" width="10" height="15" rx="3" fill="#bc8a5f"/>
+                <rect x="215" y="140" width="10" height="15" rx="3" fill="#bc8a5f"/>
+
+                <!-- Falling Golden Coin -->
+                <g transform="translate(190, 35)">
+                  <circle cx="10" cy="10" r="12" fill="#eab308" stroke="#ca8a04" stroke-width="1.5"/>
+                  <text x="7" y="14" fill="#fff" font-size="12" font-weight="bold">$</text>
+                </g>
+
+                <!-- Gamified Badge Stars -->
+                <path d="M280 60 L283 67 L290 68 L285 73 L286 80 L280 76 L274 80 L275 73 L270 68 L277 67 Z" fill="#eab308"/>
+                <path d="M110 130 L112 135 L117 136 L113 140 L114 145 L110 142 L106 145 L107 140 L103 136 L108 135 Z" fill="#eab308"/>
+              </svg>
+            </div>
+
+            <!-- Content Sections -->
+            <div class="space-y-4 text-sm text-espresso/80 dark:text-espresso-dark/80">
+              <div>
+                <h3 class="font-bold text-espresso dark:text-espresso-dark text-base mb-1 flex items-center">
+                  <i class="fas fa-bullseye text-caramel mr-2"></i>Purpose & Overview
+                </h3>
+                <p class="leading-relaxed">
+                  To design a secure and engaging digital banking platform tailored for children, helping them build early financial literacy through simulated savings, withdrawals, and interactive rewards.
+                </p>
+              </div>
+
+              <div>
+                <h3 class="font-bold text-espresso dark:text-espresso-dark text-base mb-1 flex items-center">
+                  <i class="fas fa-code-branch text-caramel mr-2"></i>My Key Contributions
+                </h3>
+                <ul class="list-disc list-inside space-y-1.5 pl-2">
+                  <li>Implemented core transaction modules for savings, deposits, and simulated withdrawals with secure state management.</li>
+                  <li>Developed a gamified reward system incorporating streak badges, points, and goal-tracking milestones.</li>
+                  <li>Designed intuitive, accessible user workflows tailored for younger audiences and parent supervisors.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full bg-paper/80 dark:bg-paper-dark/80 border-t border-caramel/20 py-4 px-4 text-center text-xs text-espresso/60 dark:text-espresso-dark/60">
+    <p>© 2026 Callina. Warm Sand & Espresso Desk Environment.</p>
+  </footer>
+
+  <script>
+    function switchProject(id) {
+      const p1 = document.getElementById('project1');
+      const p2 = document.getElementById('project2');
+      const tab1 = document.getElementById('tabBtn1');
+      const tab2 = document.getElementById('tabBtn2');
+
+      if (id === 1) {
+        p1.classList.remove('hidden');
+        p2.classList.add('hidden');
+        tab1.className = "w-full text-left px-4 py-3 rounded-xl border border-caramel/40 font-semibold text-xs transition flex items-center justify-between tab-active shadow-sm";
+        tab2.className = "w-full text-left px-4 py-3 rounded-xl border border-caramel/40 font-semibold text-xs text-espresso/80 dark:text-espresso-dark/80 hover:bg-caramel/10 transition flex items-center justify-between";
+      } else {
+        p2.classList.remove('hidden');
+        p1.classList.add('hidden');
+        tab2.className = "w-full text-left px-4 py-3 rounded-xl border border-caramel/40 font-semibold text-xs transition flex items-center justify-between tab-active shadow-sm";
+        tab1.className = "w-full text-left px-4 py-3 rounded-xl border border-caramel/40 font-semibold text-xs text-espresso/80 dark:text-espresso-dark/80 hover:bg-caramel/10 transition flex items-center justify-between";
+      }
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const icon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        icon.className = 'fas fa-moon';
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        icon.className = 'fas fa-sun';
+      }
+    }
+    
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+      document.getElementById('themeIcon').className = 'fas fa-sun';
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.getElementById('themeIcon').className = 'fas fa-moon';
+    }
+  </script>
+</body>
+</html>

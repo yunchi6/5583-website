@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callina | Projects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --card-border: rgba(255, 255, 255, 0.6);
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            --accent-hover: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            --nav-bg: rgba(255, 255, 255, 0.8);
+        }
+
+        html.dark {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            --card-bg: rgba(30, 41, 59, 0.75);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            --accent-hover: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            --nav-bg: rgba(15, 23, 42, 0.8);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 0.25rem 0;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
+        }
+
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        main {
+            flex: 1;
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .page-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-title span {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .project-title-area h2 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(79, 70, 229, 0.1);
+            color: #4f46e5;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(79, 70, 229, 0.2);
+        }
+
+        html.dark .badge {
+            background: rgba(129, 140, 248, 0.15);
+            color: #818cf8;
+            border-color: rgba(129, 140, 248, 0.3);
+        }
+
+        .project-summary {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Expandable content */
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .collapsible-content.expanded {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 0.5rem;
+        }
+
+        .detail-block h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .detail-block p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .toggle-btn {
+            background: transparent;
+            border: none;
+            color: #4f46e5;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0;
+            margin-top: 0.5rem;
+            width: fit-content;
+        }
+
+        html.dark .toggle-btn {
+            color: #818cf8;
+        }
+
+        .toggle-btn:hover {
+            text-decoration: underline;
+        }
+
+        .toggle-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .collapsible-content.expanded + * .toggle-arrow,
+        .project-card.is-open .toggle-arrow {
+            transform: rotate(180deg);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--card-border);
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-container { padding: 1rem; }
+            .nav-links { gap: 1rem; }
+            .project-header { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Callina.dev</a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="projects.html" class="active">Projects</a>
+                <a href="contact.html">Contact</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div>
+            <h1 class="page-title">My <span>Projects</span></h1>
+            <p class="section-subtitle">Showcasing coursework in autonomous robotics, embedded systems, and secure web platforms.</p>
+        </div>
+
+        <div class="projects-list">
+            <!-- Project 1 -->
+            <div class="project-card" id="project1Card">
+                <div class="project-header">
+                    <div class="project-title-area">
+                        <h2>Autonomous Maze-Solving Smart Car System</h2>
+                    </div>
+                    <span class="badge">Coursework</span>
+                </div>
+                <p class="project-summary">
+                    Designed and built an autonomous mini-car capable of real-time maze exploration, obstacle detection, and optimal path planning without human intervention.
+                </p>
+
+                <div class="collapsible-content" id="proj1Details">
+                    <div class="detail-block">
+                        <h4>🎯 Purpose</h4>
+                        <p>To engineer a robotic platform that navigates unpredictable labyrinth environments independently, evaluating sensor telemetry to map and solve mazes efficiently.</p>
+                    </div>
+                    <div class="detail-block">
+                        <h4>💻 My Contributions</h4>
+                        <p>Developed core software control modules implementing maze-solving algorithms (such as Wall-Following and Breadth-First Search/BFS), processed real-time sensor telemetry data for automatic obstacle avoidance, and seamlessly integrated software logic with hardware microcontrollers.</p>
+                    </div>
+                </div>
+
+                <button class="toggle-btn" onclick="toggleProject(1)">
+                    <span class="btn-text-1">Read More</span>
+                    <svg class="toggle-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card" id="project2Card">
+                <div class="project-header">
+                    <div class="project-title-area">
+                        <h2>Gamified Children's Banking & Reward System</h2>
+                    </div>
+                    <span class="badge">Coursework</span>
+                </div>
+                <p class="project-summary">
+                    Designed a secure and engaging digital banking platform tailored for children, helping them build early financial literacy through simulated savings and interactive rewards.
+                </p>
+
+                <div class="collapsible-content" id="proj2Details">
+                    <div class="detail-block">
+                        <h4>🎯 Purpose</h4>
+                        <p>To create an intuitive, secure fintech interface that introduces young users to financial concepts like saving, budgeting, and goal-setting through gamified positive reinforcement.</p>
+                    </div>
+                    <div class="detail-block">
+                        <h4>💻 My Contributions</h4>
+                        <p>Implemented core transaction modules for secure deposits and withdrawals with robust state management, developed a gamified reward system featuring achievement badges and virtual points, and crafted clean, user-friendly workflows for young learners.</p>
+                    </div>
+                </div>
+
+                <button class="toggle-btn" onclick="toggleProject(2)">
+                    <span class="btn-text-2">Read More</span>
+                    <svg class="toggle-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Callina. Built with soft pastels & glassmorphism.</p>
+    </footer>
+
+    <script>
+        // Theme Toggle Script
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            htmlElement.classList.add('dark');
+            updateIcon('dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                updateIcon('light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                updateIcon('dark');
+            }
+        });
+
+        function updateIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+            } else {
+                themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+            }
+        }
+
+        // Expandable Project Details Script
+        function toggleProject(id) {
+            const content = document.getElementById(`proj${id}Details`);
+            const card = document.getElementById(`project${id}Card`);
+            const btnText = document.querySelector(`.btn-text-${id}`);
+
+            content.classList.toggle('expanded');
+            card.classList.toggle('is-open');
+
+            if (content.classList.contains('expanded')) {
+                btnText.textContent = 'Show Less';
+            } else {
+                btnText.textContent = 'Read More';
+            }
+        }
+    </script>
+</body>
+</html>

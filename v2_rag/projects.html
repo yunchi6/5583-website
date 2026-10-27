@@ -1,0 +1,678 @@
+=== FILE: projects.html ===
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects — Callina Interactive Logbook</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #faf8f5;
+            --text-primary: #3e2723;
+            --text-secondary: #5d4037;
+            --text-muted: #8d6e63;
+            --accent-bronze: #d4a373;
+            --accent-bronze-hover: #bc8a5f;
+            --accent-bronze-light: rgba(212, 163, 115, 0.15);
+            --surface-paper: #fffdfa;
+            --surface-card: #f5efe6;
+            --border-color: #e6ded4;
+            --shadow-soft: 0 10px 30px rgba(62, 39, 35, 0.05);
+            --shadow-medium: 0 15px 40px rgba(62, 39, 35, 0.08);
+            --shadow-deep: 0 25px 50px rgba(62, 39, 35, 0.12);
+            --transition-speed: 0.3s;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1c1412;
+            --text-primary: #ebdcd5;
+            --text-secondary: #c9b5ac;
+            --text-muted: #9a847a;
+            --accent-bronze: #dfb285;
+            --accent-bronze-hover: #ebd0b5;
+            --accent-bronze-light: rgba(223, 178, 133, 0.15);
+            --surface-paper: #281d1a;
+            --surface-card: #332622;
+            --border-color: #44322c;
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --shadow-medium: 0 15px 40px rgba(0, 0, 0, 0.4);
+            --shadow-deep: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            line-height: 1.6;
+        }
+
+        /* Top Navigation Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 248, 245, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            transition: background var(--transition-speed), border-color var(--transition-speed);
+        }
+
+        [data-theme="dark"] header {
+            background: rgba(28, 20, 18, 0.85);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-bronze);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding: 0.4rem 0;
+            transition: color var(--transition-speed);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-bronze);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: var(--accent-bronze);
+            transition: width var(--transition-speed) ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: var(--surface-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all var(--transition-speed);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent-bronze);
+            color: var(--accent-bronze);
+            transform: translateY(-2px);
+        }
+
+        /* Main Open Logbook Section */
+        main {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .page-header {
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        .page-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--text-primary);
+        }
+
+        .page-subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--accent-bronze);
+            margin-top: 0.5rem;
+        }
+
+        /* Logbook Binder Frame */
+        .logbook-wrapper {
+            display: flex;
+            position: relative;
+            margin: 0 auto;
+            max-width: 1100px;
+        }
+
+        /* Logbook Metallic Bronze Side Index Tabs */
+        .logbook-tabs {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            padding-top: 2rem;
+            z-index: 5;
+        }
+
+        .tab-btn {
+            background: linear-gradient(135deg, #d4a373 0%, #bc8a5f 100%);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 1.2rem 0.8rem;
+            border-radius: 12px 0 0 12px;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.15);
+            transition: all 0.25s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tab-btn:hover {
+            background: linear-gradient(135deg, #e5b484 0%, #cd9b70 100%);
+            padding-right: 1.1rem;
+        }
+
+        .tab-btn.active {
+            background: var(--surface-paper);
+            color: var(--accent-bronze);
+            border: 2px solid var(--accent-bronze);
+            border-right: none;
+            box-shadow: -6px 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Open Logbook Book Spread */
+        .logbook-book {
+            flex: 1;
+            background-color: var(--surface-paper);
+            border: 2px solid var(--border-color);
+            border-radius: 0 16px 16px 0;
+            box-shadow: var(--shadow-deep);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Central Book Spine Binding */
+        .logbook-book::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 24px;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, 
+                rgba(0,0,0,0.08) 0%, 
+                rgba(0,0,0,0.02) 25%, 
+                rgba(0,0,0,0.15) 50%, 
+                rgba(0,0,0,0.02) 75%, 
+                rgba(0,0,0,0.08) 100%);
+            z-index: 10;
+            border-left: 1px dashed rgba(62, 39, 35, 0.2);
+            border-right: 1px dashed rgba(62, 39, 35, 0.2);
+        }
+
+        /* Logbook Pages */
+        .logbook-page {
+            padding: 3rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-y: auto;
+        }
+
+        .page-left {
+            border-right: 1px solid var(--border-color);
+            background-color: var(--surface-paper);
+        }
+
+        .page-right {
+            background-color: var(--surface-card);
+        }
+
+        .project-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-bronze);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .project-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-bottom: 1.2rem;
+            line-height: 1.3;
+        }
+
+        .project-section-heading {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin: 1.5rem 0 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.3rem;
+        }
+
+        .project-text {
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+            line-height: 1.7;
+        }
+
+        .contributions-list {
+            list-style: none;
+            margin-top: 0.5rem;
+        }
+
+        .contributions-list li {
+            position: relative;
+            padding-left: 1.4rem;
+            margin-bottom: 0.6rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .contributions-list li::before {
+            content: "❖";
+            position: absolute;
+            left: 0;
+            color: var(--accent-bronze);
+            font-size: 0.8rem;
+        }
+
+        /* Graphic/Illustration Container */
+        .illustration-card {
+            background: var(--surface-paper);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            min-height: 320px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.02);
+        }
+
+        .svg-container {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+        }
+
+        .tab-content {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .tab-content.active {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: auto;
+        }
+
+        @media (max-width: 900px) {
+            .logbook-wrapper {
+                flex-direction: column;
+            }
+            .logbook-tabs {
+                flex-direction: row;
+                padding-top: 0;
+                padding-bottom: 0.5rem;
+            }
+            .tab-btn {
+                writing-mode: horizontal-tb;
+                transform: none;
+                border-radius: 8px 8px 0 0;
+                padding: 0.8rem 1.2rem;
+            }
+            .logbook-book {
+                border-radius: 0 0 12px 12px;
+            }
+            .tab-content.active {
+                grid-template-columns: 1fr;
+            }
+            .logbook-book::before {
+                display: none;
+            }
+            .page-left {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Header -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-dot"></span> Callina
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="projects.html" class="active">Projects</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="controls">
+                <button class="theme-toggle" id="themeToggleBtn" aria-label="Toggle Theme">
+                    <span id="themeIcon">🌙</span> <span id="themeText">Dark</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Project Logbook -->
+    <main>
+        <div class="page-header">
+            <h1 class="page-title">Engineering Logbook</h1>
+            <p class="page-subtitle">// TWO-COLUMN SPREAD & ARCHITECTURAL LOGS</p>
+        </div>
+
+        <div class="logbook-wrapper">
+            <!-- Side Tabs -->
+            <div class="logbook-tabs">
+                <button class="tab-btn active" onclick="openProject('project1', this)">Project 01</button>
+                <button class="tab-btn" onclick="openProject('project2', this)">Project 02</button>
+            </div>
+
+            <!-- Logbook Book Container -->
+            <div class="logbook-book">
+
+                <!-- PROJECT 1: Autonomous Maze-Solving Smart Car System -->
+                <div id="project1" class="tab-content active">
+                    <!-- Left Page -->
+                    <div class="logbook-page page-left">
+                        <div>
+                            <div class="project-meta">COURSEWORK PROJECT // 01</div>
+                            <h2 class="project-title">Autonomous Maze-Solving Smart Car System</h2>
+                            
+                            <h3 class="project-section-heading">Project Purpose</h3>
+                            <p class="project-text">
+                                To design and build an autonomous mini-car capable of real-time maze exploration, 
+                                obstacle detection, and optimal path planning without human intervention.
+                            </p>
+
+                            <h3 class="project-section-heading">My Contributions</h3>
+                            <ul class="contributions-list">
+                                <li>Developed core software control modules utilizing maze-solving algorithms (Wall-Following / Breadth-First Search).</li>
+                                <li>Processed real-time sensor telemetry data for automatic obstacle avoidance and route optimization.</li>
+                                <li>Integrated high-level algorithmic software logic seamlessly with hardware microcontrollers.</li>
+                            </ul>
+                        </div>
+                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted); margin-top: 1rem;">
+                            PAGE 01 — AUTONOMOUS SYSTEMS LOG
+                        </div>
+                    </div>
+
+                    <!-- Right Page: 3D Isometric Maze Graphic -->
+                    <div class="logbook-page page-right">
+                        <div class="illustration-card">
+                            <!-- Isometric 3D Maze SVG Graphic -->
+                            <svg class="svg-container" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+                                <g transform="translate(200, 40)">
+                                    <!-- Isometric Base Floor -->
+                                    <polygon points="0,0 160,80 0,160 -160,80" fill="#f5efe6" stroke="#d4a373" stroke-width="2"/>
+                                    
+                                    <!-- Grid Lines -->
+                                    <path d="M -120,60 L 0,120 L 120,60" fill="none" stroke="#e6ded4" stroke-width="1.5"/>
+                                    <path d="M -80,40 L 0,80 L 80,40" fill="none" stroke="#e6ded4" stroke-width="1.5"/>
+                                    <path d="M -40,20 L 0,40 L 40,20" fill="none" stroke="#e6ded4" stroke-width="1.5"/>
+                                    
+                                    <path d="M -120,100 L 0,40 L 120,100" fill="none" stroke="#e6ded4" stroke-width="1.5" transform="translate(0,20)"/>
+
+                                    <!-- Isometric Walls -->
+                                    <!-- Wall 1 -->
+                                    <g transform="translate(-80, 40)">
+                                        <polygon points="0,0 40,20 40,-30 0,-50" fill="#3e2723" opacity="0.9"/>
+                                        <polygon points="0,0 -40,20 -40,-30 0,-50" fill="#5d4037" opacity="0.9"/>
+                                        <polygon points="0,-50 40,-30 0,-10 -40,-30" fill="#8d6e63"/>
+                                    </g>
+
+                                    <!-- Wall 2 -->
+                                    <g transform="translate(40, 60)">
+                                        <polygon points="0,0 40,20 40,-30 0,-50" fill="#3e2723" opacity="0.9"/>
+                                        <polygon points="0,0 -40,20 -40,-30 0,-50" fill="#5d4037" opacity="0.9"/>
+                                        <polygon points="0,-50 40,-30 0,-10 -40,-30" fill="#8d6e63"/>
+                                    </g>
+
+                                    <!-- Wall 3 Center -->
+                                    <g transform="translate(0, 80)">
+                                        <polygon points="0,0 40,20 40,-25 0,-45" fill="#3e2723" opacity="0.85"/>
+                                        <polygon points="0,0 -40,20 -40,-25 0,-45" fill="#5d4037" opacity="0.85"/>
+                                        <polygon points="0,-45 40,-25 0,-5 -40,-25" fill="#8d6e63"/>
+                                    </g>
+
+                                    <!-- Path Trail Line -->
+                                    <path d="M -120,80 L -40,120 L 40,80 L 80,100" fill="none" stroke="#d4a373" stroke-width="3" stroke-dasharray="4,4"/>
+
+                                    <!-- Mini Car at Start (-120, 80) -->
+                                    <g transform="translate(-120, 75)">
+                                        <ellipse cx="0" cy="0" rx="14" ry="8" fill="#d4a373"/>
+                                        <ellipse cx="0" cy="-4" rx="8" ry="5" fill="#3e2723"/>
+                                        <circle cx="-10" cy="2" r="3" fill="#1c1412"/>
+                                        <circle cx="10" cy="2" r="3" fill="#1c1412"/>
+                                        <text x="-15" y="-12" font-family="sans-serif" font-size="9" fill="#3e2723" font-weight="bold">START</text>
+                                    </g>
+
+                                    <!-- Treasure Chest / Goal at End (80, 100) -->
+                                    <g transform="translate(80, 95)">
+                                        <rect x="-10" y="-12" width="20" height="14" rx="2" fill="#d4a373" stroke="#3e2723" stroke-width="1.5"/>
+                                        <path d="M -10,-5 L 10,-5" stroke="#3e2723" stroke-width="1.5"/>
+                                        <circle cx="0" cy="-5" r="2" fill="#fffdfa"/>
+                                        <text x="-12" y="-16" font-family="sans-serif" font-size="9" fill="#d4a373" font-weight="bold">GOAL ★</text>
+                                    </g>
+                                </g>
+                            </svg>
+                            <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">
+                                Fig 1. Isometric Real-Time Path-Finding Topology
+                            </p>
+                        </div>
+                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted); margin-top: 1rem; text-align: right;">
+                            PAGE 02 — ISOMETRIC SCHEMATIC
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 2: Gamified Children's Banking -->
+                <div id="project2" class="tab-content">
+                    <!-- Left Page -->
+                    <div class="logbook-page page-left">
+                        <div>
+                            <div class="project-meta">COURSEWORK PROJECT // 02</div>
+                            <h2 class="project-title">Gamified Children's Banking & Reward System</h2>
+                            
+                            <h3 class="project-section-heading">Project Purpose</h3>
+                            <p class="project-text">
+                                To design a secure and engaging digital banking platform tailored for children, 
+                                helping them build early financial literacy through simulated savings, 
+                                withdrawals, and interactive rewards.
+                            </p>
+
+                            <h3 class="project-section-heading">My Contributions</h3>
+                            <ul class="contributions-list">
+                                <li>Implemented core transaction modules for savings, deposits, and withdrawals with secure state management.</li>
+                                <li>Developed a gamified reward system featuring unlockable badges, milestone points, and goal progress tracking.</li>
+                                <li>Designed intuitive, child-friendly user workflows that simplify complex financial concepts into accessible UI elements.</li>
+                            </ul>
+                        </div>
+                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted); margin-top: 1rem;">
+                            PAGE 03 — FINANCIAL LITERACY UI LOG
+                        </div>
+                    </div>
+
+                    <!-- Right Page: Banking UI Schematic Graphic -->
+                    <div class="logbook-page page-right">
+                        <div class="illustration-card">
+                            <svg class="svg-container" viewBox="0 0 360 280" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Mobile Device Outline -->
+                                <rect x="80" y="20" width="200" height="240" rx="16" fill="#fffdfa" stroke="#3e2723" stroke-width="3"/>
+                                
+                                <!-- Card Screen Content -->
+                                <rect x="95" y="40" width="170" height="70" rx="8" fill="#d4a373" opacity="0.9"/>
+                                <text x="110" y="62" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#fffdfa" font-weight="bold">SAVINGS BALANCE</text>
+                                <text x="110" y="88" font-family="'JetBrains Mono', monospace" font-size="18" fill="#fffdfa" font-weight="bold">$1,250.00</text>
+                                
+                                <!-- Progress Bar -->
+                                <rect x="95" y="125" width="170" height="12" rx="6" fill="#e6ded4"/>
+                                <rect x="95" y="125" width="120" height="12" rx="6" fill="#d4a373"/>
+                                <text x="95" y="152" font-family="sans-serif" font-size="9" fill="#5d4037">Goal: Bike Fund (75%)</text>
+
+                                <!-- Reward Badges -->
+                                <circle cx="120" cy="190" r="16" fill="#f5efe6" stroke="#d4a373" stroke-width="2"/>
+                                <text x="114" y="195" font-size="14">🏆</text>
+
+                                <circle cx="180" cy="190" r="16" fill="#f5efe6" stroke="#d4a373" stroke-width="2"/>
+                                <text x="174" y="195" font-size="14">⭐</text>
+
+                                <circle cx="240" cy="190" r="16" fill="#f5efe6" stroke="#d4a373" stroke-width="2"/>
+                                <text x="234" y="195" font-size="14">🎯</text>
+
+                                <text x="122" y="228" font-family="sans-serif" font-size="9" fill="#8d6e63">Saver Badge</text>
+                                <text x="180" y="228" font-family="sans-serif" font-size="9" fill="#8d6e63">Streak</text>
+                                <text x="238" y="228" font-family="sans-serif" font-size="9" fill="#8d6e63">Target</text>
+                            </svg>
+                            <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">
+                                Fig 2. Gamified Reward & Transaction Interface
+                            </p>
+                        </div>
+                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted); margin-top: 1rem; text-align: right;">
+                            PAGE 04 — INTERACTIVE WIREFRAME
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Callina. Warm Sand & Espresso Design System.</p>
+    </footer>
+
+    <!-- Tab Switching Script & Theme Toggle -->
+    <script>
+        function openProject(projectId, btnElement) {
+            // Hide all tab content
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Deactivate all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Activate selected tab and button
+            document.getElementById(projectId).classList.add('active');
+            btnElement.classList.add('active');
+        }
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        const htmlElement = document.documentElement;
+
+        const currentTheme = localStorage.getItem('callina_theme') || 'light';
+        htmlElement.setAttribute('data-theme', currentTheme);
+        updateToggleUI(currentTheme);
+
+        themeToggleBtn.addEventListener('click', () => {
+            const activeTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = activeTheme === 'light' ? 'dark' : 'light';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('callina_theme', newTheme);
+            updateToggleUI(newTheme);
+        });
+
+        function updateToggleUI(theme) {
+            if (theme === 'dark') {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark';
+            }
+        }
+    </script>
+</body>
+</html>

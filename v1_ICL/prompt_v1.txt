@@ -1,0 +1,54 @@
+Role: Expert front-end web developer and UI/UX design assistant.
+
+Objective: Create a modern, multi-page personal website for "Callina" consisting of FOUR SEPARATE AND INDEPENDENT HTML FILES. You must strictly use "In-context learning (Few-shot learning)" by adopting the design patterns defined below.
+
+=== IN-CONTEXT LEARNING (FEW-SHOT) DESIGN EXAMPLES ===
+
+- EXAMPLE 1 (HOMEPAGE - VIRTUAL DESK SCENE):
+  - Visual Concept: Inspired by a warm, hand-drawn digital workspace aesthetic on a cozy wooden desk surface. 
+  - Central Hero Focus: A clean, light-themed computer monitor sits in the exact center as the absolute visual focal point. Screen background is soft warm off-white (#fffdfa) with deep espresso brown typography (#3e2723) and warm caramel accents (#d4a373). It displays Callina's intro, tagline, and interactive tech stack pills.
+  - Integrated Desk Elements: Surrounding items like an open book and ID card serve as tactile, clickable entry points leading to "Projects" and "About Me".
+  - Palette: Strict Warm Sand & Espresso (#faf8f5 background, #3e2723 text, #d4a373 highlights). NO purple, NO green, NO heavy dark terminal screens.
+
+- EXAMPLE 2 (PROJECTS PAGE - INTERACTIVE PROJECT LOGBOOK):
+  - Visual Concept: Transform `projects.html` into a stylized, open-faced digital logbook resting flat on the warm desk surface (#faf8f5), featuring a natural paper texture (#fffdf0).
+  - Side-Index Tabs: Metal/leather index tabs along the outer margins acting as clean navigation buttons for each project.
+  - Right Page Content: Paired with dedicated static vector illustrations (e.g., Project 1 features an isometric 3D maze grid with a mini smart car at the start and a treasure chest at the destination; Project 2 features a digital piggy bank).
+
+=== PERSONAL INFORMATION & PAGE CONTENT ===
+1. index.html (Homepage - Virtual Desk Hub):
+   - Navigation: Top nav tabs: "Home", "About", "Projects", "Contact".
+   - Display Name: Callina
+   - Tagline: "Computer Science student passionate about Agentic AI, web development, and intelligent systems."
+   - Feature: Integrated hub inside the central computer monitor with relative links pointing to About, Projects, and Contact.
+
+2. about.html (About Page):
+   - Education (The ONLY place where university info appears): Studying Computer Science and Agentic Computing at The Hong Kong Polytechnic University (PolyU), 2026–2027.
+   - Interests: Deeply fascinated by Agentic AI systems, intelligent automation, and modern web development. Outside of coding, enjoys urban exploration (City Walk) to discover hidden inspirations in the city.
+
+3. projects.html (Projects Page - Logbook Format):
+   - Project 1: Autonomous Maze-Solving Smart Car System (Coursework)
+     * Purpose: To design and build an autonomous mini-car capable of real-time maze exploration, obstacle detection, and optimal path planning without human intervention.
+     * My Contributions: Developed core software control modules (maze-solving algorithms like Wall-Following/BFS), processed sensor telemetry data for automatic obstacle avoidance, and integrated software logic with microcontrollers.
+     * Illustration: Isometric 3D Maze grid, mini car at start, treasure chest at end.
+   - Project 2: Gamified Children's Banking and Reward System (Coursework)
+     * Purpose: To design a secure and engaging digital banking platform tailored for children, helping them build early financial literacy through simulated savings, withdrawals, and interactive rewards.
+     * My Contributions: Implemented core transaction modules for deposits and withdrawals with secure state management, developed a gamified reward system with badges/points, and designed intuitive user workflows.
+
+4. contact.html (Contact Page):
+   - Statement: "Thank you for visiting my personal website! Contact details are currently withheld for privacy reasons. Feel free to explore my projects and background across the site."
+
+=== TECHNICAL & INTERACTIVE FEATURES ===
+- Multi-page Links: Working relative hyper-links (`href="index.html"`, `href="about.html"`, `href="projects.html"`, `href="contact.html"`).
+- Interactive Features:
+  1. A Dark/Light mode theme switch button visible on all pages.
+  2. Smooth page-switching and responsive design.
+
+=== MANDATORY OUTPUT INSTRUCTIONS ===
+- DO NOT combine the pages into a single file. You must output FOUR distinct HTML files.
+- Separate your code blocks clearly using the following exact headers for each file:
+  * `=== FILE: index.html ===`
+  * `=== FILE: about.html ===`
+  * `=== FILE: projects.html ===`
+  * `=== FILE: contact.html ===`
+- Ensure CSS and JS are included or shared properly so each file can be opened locally or deployed seamlessly. 

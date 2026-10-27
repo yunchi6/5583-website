@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Guestbook | Callina Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        desk: {
+                            bg: '#faf8f5',
+                            bgDark: '#1c1917',
+                            surface: '#fffdfa',
+                            surfaceDark: '#262626',
+                            text: '#3e2723',
+                            textDark: '#f5f5f4',
+                            accent: '#d4a373',
+                            accentHover: '#bc8a5f',
+                            border: '#e7e5e4',
+                            borderDark: '#44403c'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        /* Base Smooth Transitions */
+        * {
+            transition: background-color 0.25s ease, border-color 0.25s ease, color 0.20s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.02);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4a373;
+            border-radius: 9999px;
+        }
+
+        /* Desk item shadow elevation */
+        .desk-card {
+            box-shadow: 0 10px 25px -5px rgba(62, 39, 35, 0.08), 0 8px 10px -6px rgba(62, 39, 35, 0.04);
+        }
+        .dark .desk-card {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-desk-bg dark:bg-desk-bgDark text-desk-text dark:text-desk-textDark font-sans min-h-screen flex flex-col selection:bg-desk-accent selection:text-white">
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-desk-bg/85 dark:bg-desk-bgDark/85 border-b border-desk-border dark:border-desk-borderDark px-4 lg:px-8 py-3">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <!-- Brand / Logo -->
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-desk-accent text-white flex items-center justify-center font-bold text-xl shadow-md group-hover:scale-105">
+                    C
+                </div>
+                <div class="text-left">
+                    <span class="text-lg font-bold tracking-tight block leading-none">Callina</span>
+                    <span class="text-xs text-stone-500 dark:text-stone-400 font-mono">PolyU CS Student</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-1 bg-stone-200/60 dark:bg-stone-800/60 p-1.5 rounded-2xl border border-stone-300/50 dark:border-stone-700/50">
+                <a href="index.html" class="px-4 py-2 rounded-xl text-sm font-medium hover:text-desk-accent">
+                    <i class="fa-solid fa-desktop mr-1.5"></i> Desk Hub
+                </a>
+                <a href="about.html" class="px-4 py-2 rounded-xl text-sm font-medium hover:text-desk-accent">
+                    <i class="fa-solid fa-book-open mr-1.5"></i> About
+                </a>
+                <a href="projects.html" class="px-4 py-2 rounded-xl text-sm font-medium hover:text-desk-accent">
+                    <i class="fa-solid fa-folder-open mr-1.5"></i> Projects
+                </a>
+                <a href="contact.html" class="px-4 py-2 rounded-xl text-sm font-medium bg-desk-accent text-white relative">
+                    <i class="fa-solid fa-comment-dots mr-1.5"></i> Contact & Guestbook
+                    <span class="absolute -top-1 -right-1 flex h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-desk-accent opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-desk-accent"></span>
+                    </span>
+                </a>
+            </nav>
+
+            <!-- Action Controls -->
+            <div class="flex items-center space-x-3">
+                <!-- Theme Toggle Button -->
+                <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl border border-desk-border dark:border-desk-borderDark bg-desk-surface dark:bg-desk-surfaceDark hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-600 dark:text-stone-300" title="Toggle Light/Dark Theme">
+                    <i id="theme-icon" class="fa-solid fa-moon"></i>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl border border-desk-border dark:border-desk-borderDark bg-desk-surface dark:bg-desk-surfaceDark text-stone-600 dark:text-stone-300">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden mt-3 pt-3 border-t border-desk-border dark:border-desk-borderDark flex flex-col space-y-2">
+            <a href="index.html" class="px-4 py-2.5 rounded-xl text-left text-sm font-medium hover:bg-desk-accent/10">
+                <i class="fa-solid fa-desktop w-6 text-desk-accent"></i> Desk Hub
+            </a>
+            <a href="about.html" class="px-4 py-2.5 rounded-xl text-left text-sm font-medium hover:bg-desk-accent/10">
+                <i class="fa-solid fa-book-open w-6 text-desk-accent"></i> About Journal
+            </a>
+            <a href="projects.html" class="px-4 py-2.5 rounded-xl text-left text-sm font-medium hover:bg-desk-accent/10">
+                <i class="fa-solid fa-folder-open w-6 text-desk-accent"></i> Projects Logbook
+            </a>
+            <a href="contact.html" class="px-4 py-2.5 rounded-xl text-left text-sm font-medium bg-desk-accent/10 font-bold">
+                <i class="fa-solid fa-comment-dots w-6 text-desk-accent"></i> Contact & Guestbook
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-6xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+        <section class="space-y-8">
+            <div class="border-b border-desk-border dark:border-desk-borderDark pb-5 flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-extrabold tracking-tight">Contact & Message Board</h1>
+                    <p class="text-stone-500 dark:text-stone-400 text-sm mt-1">Leave a message or send warm feedback to Callina's virtual desk!</p>
+                </div>
+            </div>
+
+            <!-- Privacy Notice Card -->
+            <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/40 flex items-start space-x-3">
+                <i class="fa-solid fa-shield-halved text-amber-700 dark:text-amber-400 text-lg mt-0.5"></i>
+                <div class="text-xs text-amber-900 dark:text-amber-200">
+                    <span class="font-bold">Privacy Note:</span> Thank you for visiting my personal website! Direct email and phone details are currently withheld for privacy reasons. However, feel free to use the interactive guestbook below to leave a note!
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+                <!-- Leave a Message Form (5 Cols) -->
+                <div class="lg:col-span-5 desk-card bg-desk-surface dark:bg-desk-surfaceDark p-6 rounded-3xl border border-desk-border dark:border-desk-borderDark space-y-5">
+                    <h2 class="text-xl font-bold flex items-center space-x-2 text-desk-accent">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <span>Leave a Message (留言)</span>
+                    </h2>
+
+                    <form id="message-form" onsubmit="handleMessageSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-stone-500 mb-1">Your Name / Alias</label>
+                            <input type="text" id="form-name" required placeholder="e.g. Alex (Visitor)"
+                                class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-900 text-sm focus:outline-none focus:border-desk-accent">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-stone-500 mb-1">Social / Contact (Optional)</label>
+                            <input type="text" id="form-contact" placeholder="e.g. @alex_polyu or github"
+                                class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-900 text-sm focus:outline-none focus:border-desk-accent">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-stone-500 mb-1">Category</label>
+                            <select id="form-category" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-900 text-sm focus:outline-none focus:border-desk-accent">
+                                <option value="Greeting ☕">Greeting ☕</option>
+                                <option value="Coursework Chat 💻">Coursework Chat 💻</option>
+                                <option value="AI / Tech Discussion 🤖">AI / Tech Discussion 🤖</option>
+                                <option value="City Walk / Life 🏙️">City Walk / Life 🏙️</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-stone-500 mb-1">Your Message</label>
+                            <textarea id="form-content" rows="4" required placeholder="Write your thoughts or warm message here..."
+                                class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-900 text-sm focus:outline-none focus:border-desk-accent"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-3 rounded-xl bg-desk-accent text-white font-bold text-sm hover:bg-desk-accentHover transition-transform active:scale-95 shadow-md flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Post Message</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Messages Wall Display (7 Cols) -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xl font-bold flex items-center space-x-2 text-desk-accent">
+                            <i class="fa-solid fa-comments"></i>
+                            <span>Guestbook Wall (<span id="msg-count">0</span>)</span>
+                        </h2>
+                        <button onclick="resetMessages()" class="text-xs text-stone-400 hover:text-stone-600 underline">
+                            Reset Default Notes
+                        </button>
+                    </div>
+
+                    <!-- Scrollable Wall Container -->
+                    <div id="messages-list" class="space-y-3 max-h-[520px] overflow-y-auto pr-1">
+                        <!-- Dynamic Messages Rendered via JS -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-desk-border dark:border-desk-borderDark py-6 text-center text-xs text-stone-400">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <span>© 2026 Callina. Cozy Desk Aesthetic Portfolio.</span>
+            <span>PolyU Hong Kong • Department of Computing</span>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div id="toast" class="fixed bottom-6 right-6 px-4 py-3 rounded-xl bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 text-sm shadow-2xl transition-all transform translate-y-20 opacity-0 pointer-events-none flex items-center space-x-2 z-50">
+        <i class="fa-solid fa-circle-check text-emerald-400 dark:text-emerald-600"></i>
+        <span id="toast-text">Message posted!</span>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Default preset messages
+        const initialMessages = [
+            {
+                id: 1,
+                name: "PolyU Classmate (Eric)",
+                contact: "@eric_cs",
+                category: "Coursework Chat 💻",
+                content: "Awesome smart car project! Loved the BFS algorithm visualization logic.",
+                time: "Oct 24, 2026",
+                likes: 5
+            },
+            {
+                id: 2,
+                name: "HkCityWalker",
+                contact: "visitor",
+                category: "City Walk / Life 🏙️",
+                content: "Love the warm desk theme design! Best of luck with your Agentic AI studies at PolyU!",
+                time: "Oct 26, 2026",
+                likes: 8
+            }
+        ];
+
+        let messages = [];
+
+        window.onload = function() {
+            initTheme();
+            loadMessages();
+        };
+
+        // Dark Mode Logic
+        function initTheme() {
+            const savedTheme = localStorage.getItem('callina_theme');
+            const icon = document.getElementById('theme-icon');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                icon.className = 'fa-solid fa-sun';
+            } else {
+                document.documentElement.classList.remove('dark');
+                icon.className = 'fa-solid fa-moon';
+            }
+        }
+
+        function toggleDarkMode() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            const icon = document.getElementById('theme-icon');
+            if (isDark) {
+                localStorage.setItem('callina_theme', 'dark');
+                icon.className = 'fa-solid fa-sun';
+            } else {
+                localStorage.setItem('callina_theme', 'light');
+                icon.className = 'fa-solid fa-moon';
+            }
+        }
+
+        // Mobile Menu Drawer
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Guestbook / Message Board Logic
+        function loadMessages() {
+            const stored = localStorage.getItem('callina_guestbook');
+            if(stored) {
+                try {
+                    messages = JSON.parse(stored);
+                } catch(e) {
+                    messages = [...initialMessages];
+                }
+            } else {
+                messages = [...initialMessages];
+            }
+            renderMessages();
+        }
+
+        function saveMessages() {
+            localStorage.setItem('callina_guestbook', JSON.stringify(messages));
+        }
+
+        function renderMessages() {
+            const listContainer = document.getElementById('messages-list');
+            const countLabel = document.getElementById('msg-count');
+            countLabel.innerText = messages.length;
+
+            if(messages.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="text-center py-8 text-stone-400 text-xs">
+                        No messages yet. Be the first to leave a note!
+                    </div>
+                `;
+                return;
+            }
+
+            listContainer.innerHTML = messages.map(msg => `
+                <div class="desk-card bg-desk-surface dark:bg-desk-surfaceDark p-4 rounded-2xl border border-desk-border dark:border-desk-borderDark space-y-2">
+                    <div class="flex items-center justify-between text-xs">
+                        <div class="flex items-center space-x-2">
+                            <span class="font-bold text-sm text-stone-800 dark:text-stone-100">${escapeHtml(msg.name)}</span>
+                            ${msg.contact ? `<span class="text-stone-400 font-mono text-xs">(${escapeHtml(msg.contact)})</span>` : ''}
+                        </div>
+                        <span class="text-stone-400 text-[11px] font-mono">${msg.time}</span>
+                    </div>
+
+                    <div class="inline-block px-2 py-0.5 rounded text-[11px] font-medium bg-amber-100/60 dark:bg-amber-950/40 text-amber-900 dark:text-amber-200 border border-amber-200/50 dark:border-amber-900/50">
+                        ${escapeHtml(msg.category)}
+                    </div>
+
+                    <p class="text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
+                        ${escapeHtml(msg.content)}
+                    </p>
+
+                    <div class="pt-2 flex items-center justify-end">
+                        <button onclick="likeMessage(${msg.id})" class="text-xs text-rose-500 hover:text-rose-600 flex items-center space-x-1 px-2.5 py-1 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/40 transition-transform active:scale-95">
+                            <i class="fa-solid fa-heart"></i>
+                            <span>${msg.likes || 0}</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function handleMessageSubmit(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById('form-name');
+            const contactInput = document.getElementById('form-contact');
+            const categoryInput = document.getElementById('form-category');
+            const contentInput = document.getElementById('form-content');
+
+            const newMessage = {
+                id: Date.now(),
+                name: nameInput.value.trim(),
+                contact: contactInput.value.trim(),
+                category: categoryInput.value,
+                content: contentInput.value.trim(),
+                time: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                likes: 0
+            };
+
+            messages.unshift(newMessage);
+            saveMessages();
+            renderMessages();
+
+            // Reset Form inputs
+            nameInput.value = '';
+            contactInput.value = '';
+            contentInput.value = '';
+
+            showToast('Thank you! Your message has been posted to Callina\'s desk wall.');
+        }
+
+        function likeMessage(id) {
+            const msg = messages.find(m => m.id === id);
+            if(msg) {
+                msg.likes = (msg.likes || 0) + 1;
+                saveMessages();
+                renderMessages();
+            }
+        }
+
+        function resetMessages() {
+            messages = [...initialMessages];
+            saveMessages();
+            renderMessages();
+            showToast('Default messages restored.');
+        }
+
+        // Toast Helper
+        function showToast(text) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toast-text');
+            toastText.innerText = text;
+
+            toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+            }, 3000);
+        }
+
+        // Sanitize string helper
+        function escapeHtml(str) {
+            if(!str) return '';
+            return str.replace(/&/g, "&amp;")
+                      .replace(/</g, "&lt;")
+                      .replace(/>/g, "&gt;")
+                      .replace(/"/g, "&quot;")
+                      .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,391 @@
+=== FILE: contact.html ===
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Callina Privacy Note</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #faf8f5;
+            --text-primary: #3e2723;
+            --text-secondary: #5d4037;
+            --text-muted: #8d6e63;
+            --accent-bronze: #d4a373;
+            --accent-bronze-hover: #bc8a5f;
+            --accent-bronze-light: rgba(212, 163, 115, 0.15);
+            --surface-paper: #fffdfa;
+            --surface-card: #f5efe6;
+            --border-color: #e6ded4;
+            --shadow-soft: 0 10px 30px rgba(62, 39, 35, 0.05);
+            --shadow-medium: 0 15px 40px rgba(62, 39, 35, 0.08);
+            --shadow-deep: 0 20px 40px rgba(62, 39, 35, 0.12);
+            --transition-speed: 0.3s;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1c1412;
+            --text-primary: #ebdcd5;
+            --text-secondary: #c9b5ac;
+            --text-muted: #9a847a;
+            --accent-bronze: #dfb285;
+            --accent-bronze-hover: #ebd0b5;
+            --accent-bronze-light: rgba(223, 178, 133, 0.15);
+            --surface-paper: #281d1a;
+            --surface-card: #332622;
+            --border-color: #44322c;
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --shadow-medium: 0 15px 40px rgba(0, 0, 0, 0.4);
+            --shadow-deep: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            line-height: 1.6;
+        }
+
+        /* Top Navigation Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 248, 245, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            transition: background var(--transition-speed), border-color var(--transition-speed);
+        }
+
+        [data-theme="dark"] header {
+            background: rgba(28, 20, 18, 0.85);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-bronze);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding: 0.4rem 0;
+            transition: color var(--transition-speed);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-bronze);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: var(--accent-bronze);
+            transition: width var(--transition-speed) ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: var(--surface-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all var(--transition-speed);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent-bronze);
+            color: var(--accent-bronze);
+            transform: translateY(-2px);
+        }
+
+        /* Desktop Notepad Component Layout */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 1.5rem;
+        }
+
+        .notepad-container {
+            max-width: 650px;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Notepad Sheet */
+        .notepad {
+            background-color: var(--surface-paper);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 3.5rem 3rem 3rem 4rem;
+            box-shadow: var(--shadow-deep);
+            position: relative;
+            transition: background-color var(--transition-speed);
+        }
+
+        /* Notepad Top Spiral/Clips Header */
+        .notepad-header {
+            position: absolute;
+            top: -15px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            padding: 0 2rem;
+        }
+
+        .notepad-clip {
+            width: 14px;
+            height: 30px;
+            background: linear-gradient(180deg, #d4a373 0%, #3e2723 100%);
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        /* Red Margin Line for Notepad */
+        .notepad::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 2.8rem;
+            width: 2px;
+            background-color: rgba(212, 163, 115, 0.4);
+        }
+
+        /* Horizontal Lined Paper Effect */
+        .notepad-content {
+            background-image: repeating-linear-gradient(
+                transparent,
+                transparent 31px,
+                var(--border-color) 31px,
+                var(--border-color) 32px
+            );
+            line-height: 32px;
+            padding-top: 4px;
+        }
+
+        .notepad-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            line-height: 32px;
+        }
+
+        .notepad-statement {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .stamp-box {
+            display: inline-block;
+            border: 2px dashed var(--accent-bronze);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-bronze);
+            margin-top: 1rem;
+            background: var(--accent-bronze-light);
+            line-height: 1.5;
+        }
+
+        .back-nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color var(--transition-speed);
+            line-height: 1;
+        }
+
+        .back-nav-link:hover {
+            color: var(--accent-bronze);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: auto;
+        }
+
+        @media (max-width: 600px) {
+            .notepad {
+                padding: 2.5rem 1.5rem 2rem 2.5rem;
+            }
+            .notepad::before {
+                left: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Header -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-dot"></span> Callina
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="controls">
+                <button class="theme-toggle" id="themeToggleBtn" aria-label="Toggle Theme">
+                    <span id="themeIcon">🌙</span> <span id="themeText">Dark</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Desktop Notepad Main Content -->
+    <main>
+        <div class="notepad-container">
+            <div class="notepad">
+                <!-- Top Clips -->
+                <div class="notepad-header">
+                    <div class="notepad-clip"></div>
+                    <div class="notepad-clip"></div>
+                    <div class="notepad-clip"></div>
+                </div>
+
+                <!-- Lined Paper Statement -->
+                <div class="notepad-content">
+                    <h1 class="notepad-title">Desktop Notepad</h1>
+                    
+                    <p class="notepad-statement">
+                        "Thank you for visiting my personal website! Contact details are currently withheld for privacy reasons. Feel free to explore my projects and background across the site."
+                    </p>
+
+                    <div class="stamp-box">
+                        🔒 PRIVACY NOTICE // DIRECT INQUIRIES WITHHELD
+                    </div>
+
+                    <div>
+                        <a href="index.html" class="back-nav-link">
+                            ← Return to Central Desktop Hub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Callina. Warm Sand & Espresso Design System.</p>
+    </footer>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        const htmlElement = document.documentElement;
+
+        const currentTheme = localStorage.getItem('callina_theme') || 'light';
+        htmlElement.setAttribute('data-theme', currentTheme);
+        updateToggleUI(currentTheme);
+
+        themeToggleBtn.addEventListener('click', () => {
+            const activeTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = activeTheme === 'light' ? 'dark' : 'light';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('callina_theme', newTheme);
+            updateToggleUI(newTheme);
+        });
+
+        function updateToggleUI(theme) {
+            if (theme === 'dark') {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark';
+            }
+        }
+    </script>
+</body>
+</html>
