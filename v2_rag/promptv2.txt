@@ -1,0 +1,48 @@
+
+[ROLE & CONTEXT]
+You are a World-Class Senior Frontend Architect and UI/UX Design Director. Your task is to build a modern, high-contrast, and visually compelling personal portfolio website for "Callina" by augmenting standard requirements with the following 3 retrieved professional design and technical knowledge passages.
+
+=== RETRIEVED KNOWLEDGE BASE (RAG CONTEXT) ===
+The following expert design rules and technical specifications were retrieved from the Elite UI/UX Design System to ensure professional aesthetic standards:
+
+---
+[Retrieved Passage 1: High-Contrast Color Palette & Visual Hierarchy]
+- Color Palette Standards: Avoid low-contrast or muted grey-on-grey text. Use a rich high-contrast color scheme:
+  * Dark Mode: Deep Midnight Navy background (`#0B0F19`), crisp white main body text (`#F9FAFB`), high-contrast electric gold/cyan accents (`#FBBF24` / `#38BDF8`), and solid elevated container cards (`#111827`) with distinct borders (`#374151`).
+  * Light Mode: Pure White background (`#FFFFFF`), solid charcoal body text (`#111827`), high-contrast cobalt blue accents (`#1D4ED8`), and light container cards (`#F3F4F6`) with dark borders (`#E5E7EB`).
+- Card & Container Styling: Cards must maintain sharp, clear visual boundaries (`border: 2px solid var(--card-border); border-radius: 12px;`).
+- Micro-interactions: Buttons and cards must provide strong high-contrast hover feedback (`transform: translateY(-4px); border-color: var(--accent-color);`).
+
+---
+[Retrieved Passage 2: State Persistence & Fluid Interactive Components]
+- Theme Persistence: Implement a robust Theme Switcher (High-Contrast Light/Dark mode) that saves user preference into `localStorage` and applies it instantly on page load to prevent FOUC (Flash of Unstyled Content).
+- Expandable Components: Project details must be housed in elegant, animated collapsible accordions using CSS max-height transitions, paired with clear indicator buttons ("Explore Architecture ▾" / "Collapse Details ▴").
+
+---
+[Retrieved Passage 3: Responsive Architecture & Accessibility Standards]
+- Grid Layouts: Use advanced CSS Grid with auto-fit (`grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))`) to guarantee seamless responsiveness across mobile, tablet, and desktop screens.
+- Typography & Accessibility (A11y): Ensure text-to-background contrast ratio meets or exceeds WCAG AAA standards (minimum 7:1 ratio). Include clear keyboard focus outlines and explicit navigation underline indicators for the active page.
+
+=== PERSONAL WEBSITE CONTENT REQUIREMENTS (MANDATORY) ===
+1. index.html (Homepage):
+   - Display Name: Callina
+   - Tagline: "Computer Science student passionate about Agentic AI, web development, and intelligent systems."
+   - Layout: Central hero section with high-contrast tech badges and interactive cards linking to About, Projects, and Contact.
+
+2. about.html (About Page):
+   - Education: Studying Computer Science and Agentic Computing at The Hong Kong Polytechnic University (PolyU), 2026–2027.
+   - Interests: Deeply fascinated by Agentic AI systems, intelligent automation, modern web dev, and urban exploration (City Walk).
+
+3. projects.html (Projects Page):
+   - Project 1: Autonomous Maze-Solving Smart Car System (Coursework)
+     * Purpose: Real-time maze exploration, obstacle detection, and optimal path planning without human intervention.
+     * Contributions: Developed core software control modules (Wall-Following/BFS), processed sensor telemetry data, and integrated logic with microcontrollers.
+   - Project 2: Gamified Children's Banking and Reward System (Coursework)
+     * Purpose: Secure digital banking platform tailored for children, helping them build early financial literacy.
+     * Contributions: Implemented core transaction modules (deposits/withdrawals) with secure state management, developed a gamified reward system with badges/points, and designed intuitive user workflows. 
+
+4. contact.html (Contact Page):
+   - Statement: "Thank you for visiting my personal website! Contact details are currently withheld for privacy reasons. Feel free to explore my projects and background across the site."
+
+=== OUTPUT SPECIFICATION ===
+Generate clean, highly modular, production-ready code split into a shared `style.css`, a shared `script.js`, and the 4 HTML files (`index.html`, `about.html`, `projects.html`, `contact.html`). Ensure the layout strictly maintains high contrast, visual clarity, and implements all required interactive features.

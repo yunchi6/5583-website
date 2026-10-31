@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | Callina Portfolio</title>
+  
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('callina_portfolio_theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+      } else {
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            darkBg: '#0B0F19',
+            darkText: '#F9FAFB',
+            darkCard: '#111827',
+            darkBorder: '#374151',
+            darkAccentCyan: '#38BDF8',
+            darkAccentGold: '#FBBF24',
+            lightBg: '#FFFFFF',
+            lightText: '#111827',
+            lightCard: '#F3F4F6',
+            lightBorder: '#E5E7EB',
+            lightAccentBlue: '#1D4ED8',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg-main: #FFFFFF;
+      --text-main: #111827;
+      --card-bg: #F3F4F6;
+      --card-border: #E5E7EB;
+      --accent-primary: #1D4ED8;
+      --accent-secondary: #0284C7;
+      --focus-ring: #1D4ED8;
+    }
+
+    html.dark {
+      --bg-main: #0B0F19;
+      --text-main: #F9FAFB;
+      --card-bg: #111827;
+      --card-border: #374151;
+      --accent-primary: #38BDF8;
+      --accent-secondary: #FBBF24;
+      --focus-ring: #FBBF24;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .hc-card {
+      background-color: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 12px;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .hc-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-primary);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    }
+
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+      outline: 3px solid var(--focus-ring);
+      outline-offset: 3px;
+    }
+
+    .nav-link {
+      position: relative;
+      font-weight: 600;
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--accent-primary);
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-white">
+
+  <!-- HEADER & NAVIGATION -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-opacity-90 bg-[var(--bg-main)] border-b-2 border-[var(--card-border)] transition-colors duration-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="index.html" class="group flex items-center gap-3 text-xl font-extrabold tracking-tight focus:outline-none">
+        <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-sky-400 dark:from-sky-400 dark:to-amber-400 flex items-center justify-center text-white font-mono text-xl shadow-md transform group-hover:rotate-6 transition-transform">
+          C
+        </span>
+        <span class="text-2xl font-black tracking-wider text-[var(--text-main)]">CALLINA<span class="text-[var(--accent-primary)]">.ai</span></span>
+      </a>
+
+      <nav class="hidden md:flex items-center space-x-8" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link text-base tracking-wide transition-colors hover:text-[var(--accent-primary)]">Home</a>
+        <a href="about.html" class="nav-link text-base tracking-wide transition-colors hover:text-[var(--accent-primary)]">About</a>
+        <a href="projects.html" class="nav-link text-base tracking-wide transition-colors hover:text-[var(--accent-primary)]">Projects</a>
+        <a href="contact.html" class="nav-link active text-base tracking-wide transition-colors hover:text-[var(--accent-primary)]">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <button id="themeToggleBtn" aria-label="Toggle Theme Mode" class="p-2.5 rounded-xl border-2 border-[var(--card-border)] bg-[var(--card-bg)] hover:border-[var(--accent-primary)] transition-all flex items-center justify-center text-lg">
+          <i id="themeIconSun" class="fa-solid fa-sun text-amber-400 hidden"></i>
+          <i id="themeIconMoon" class="fa-solid fa-moon text-sky-400 hidden"></i>
+        </button>
+
+        <button id="mobileMenuBtn" aria-label="Open Navigation Menu" class="md:hidden p-2.5 rounded-xl border-2 border-[var(--card-border)] bg-[var(--card-bg)] text-xl">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="hidden md:hidden border-b-2 border-[var(--card-border)] bg-[var(--bg-main)] px-4 pt-2 pb-6 space-y-3">
+      <a href="index.html" class="block px-4 py-3 rounded-lg border-2 border-transparent font-semibold text-lg hover:bg-[var(--card-bg)]">Home</a>
+      <a href="about.html" class="block px-4 py-3 rounded-lg border-2 border-transparent font-semibold text-lg hover:bg-[var(--card-bg)]">About</a>
+      <a href="projects.html" class="block px-4 py-3 rounded-lg border-2 border-transparent font-semibold text-lg hover:bg-[var(--card-bg)]">Projects</a>
+      <a href="contact.html" class="block px-4 py-3 rounded-lg font-bold text-lg bg-[var(--card-bg)] text-[var(--accent-primary)]">Contact</a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    <section class="space-y-10">
+      <div class="border-b-2 border-[var(--card-border)] pb-6">
+        <h1 class="text-3xl sm:text-4xl font-black">Get in Touch</h1>
+        <p class="text-lg opacity-80 mt-1">Connect or inquire about projects</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Privacy Statement Card -->
+        <div class="lg:col-span-1 space-y-6">
+          <div class="hc-card p-6 sm:p-8 space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-sky-500/10 border-2 border-sky-500/30 flex items-center justify-center text-[var(--accent-primary)] text-xl">
+              <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <h2 class="text-xl font-bold">Privacy Notice</h2>
+            <p class="text-sm leading-relaxed opacity-95 p-4 rounded-xl border-2 border-[var(--card-border)] bg-[var(--bg-main)]">
+              "Thank you for visiting my personal website! Contact details are currently withheld for privacy reasons. Feel free to explore my projects and background across the site."
+            </p>
+            <div class="pt-2 text-xs opacity-75">
+              <p><i class="fa-solid fa-location-dot mr-1"></i> Location: Hong Kong (PolyU Campus)</p>
+              <p class="mt-1"><i class="fa-solid fa-graduation-cap mr-1"></i> Status: Graduate CS Student</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Mock Message Form -->
+        <div class="lg:col-span-2">
+          <div class="hc-card p-6 sm:p-8 space-y-6">
+            <h2 class="text-2xl font-black">Send a Mock Message</h2>
+            <form id="contactForm" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="senderName" class="block text-xs font-bold uppercase text-[var(--accent-primary)] mb-1">Your Name</label>
+                  <input type="text" id="senderName" required placeholder="e.g. Alex Chen" class="w-full px-4 py-3 rounded-xl border-2 border-[var(--card-border)] bg-[var(--bg-main)] text-[var(--text-main)] font-medium transition-colors focus:border-[var(--accent-primary)]">
+                </div>
+                <div>
+                  <label for="senderEmail" class="block text-xs font-bold uppercase text-[var(--accent-primary)] mb-1">Your Email</label>
+                  <input type="email" id="senderEmail" required placeholder="e.g. alex@example.com" class="w-full px-4 py-3 rounded-xl border-2 border-[var(--card-border)] bg-[var(--bg-main)] text-[var(--text-main)] font-medium transition-colors focus:border-[var(--accent-primary)]">
+                </div>
+              </div>
+
+              <div>
+                <label for="messageSubject" class="block text-xs font-bold uppercase text-[var(--accent-primary)] mb-1">Subject</label>
+                <input type="text" id="messageSubject" required placeholder="Project Inquiry / Collaboration" class="w-full px-4 py-3 rounded-xl border-2 border-[var(--card-border)] bg-[var(--bg-main)] text-[var(--text-main)] font-medium transition-colors focus:border-[var(--accent-primary)]">
+              </div>
+
+              <div>
+                <label for="messageBody" class="block text-xs font-bold uppercase text-[var(--accent-primary)] mb-1">Message</label>
+                <textarea id="messageBody" rows="4" required placeholder="Write your message here..." class="w-full px-4 py-3 rounded-xl border-2 border-[var(--card-border)] bg-[var(--bg-main)] text-[var(--text-main)] font-medium transition-colors focus:border-[var(--accent-primary)]"></textarea>
+              </div>
+
+              <button type="submit" class="w-full py-3.5 rounded-xl bg-[var(--accent-primary)] text-white font-extrabold shadow-lg hover:opacity-90 transition-all">
+                Send Message &rarr;
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t-2 border-[var(--card-border)] bg-[var(--bg-main)] transition-colors duration-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="w-7 h-7 rounded-lg bg-[var(--accent-primary)] text-white font-mono text-sm font-bold flex items-center justify-center">C</span>
+        <span class="text-sm font-extrabold tracking-wide">Callina &copy; 2026–2027</span>
+      </div>
+      <p class="text-xs opacity-75 text-center sm:text-right">
+        PolyU Computer Science &bull; High-Contrast WCAG AAA Compliant Interface
+      </p>
+    </div>
+  </footer>
+
+  <!-- Custom Feedback Modal -->
+  <div id="feedbackModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="hc-card p-6 sm:p-8 max-w-md w-full space-y-4 text-center shadow-2xl bg-[var(--card-bg)]">
+      <div class="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-500 text-emerald-500 text-3xl flex items-center justify-center mx-auto">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <h3 class="text-2xl font-black">Message Received!</h3>
+      <p id="feedbackModalText" class="text-sm opacity-90 leading-relaxed">
+        Thank you for trying out the interactive contact form. Callina will review your message soon!
+      </p>
+      <button id="closeModalBtn" class="w-full py-3 rounded-xl bg-[var(--accent-primary)] text-white font-bold hover:opacity-90 transition-all">
+        Close Window
+      </button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const htmlEl = document.documentElement;
+      const themeToggleBtn = document.getElementById('themeToggleBtn');
+      const sunIcon = document.getElementById('themeIconSun');
+      const moonIcon = document.getElementById('themeIconMoon');
+
+      function updateThemeIcons() {
+        const isDark = htmlEl.classList.contains('dark');
+        if (isDark) {
+          sunIcon.classList.remove('hidden');
+          moonIcon.classList.add('hidden');
+        } else {
+          sunIcon.classList.add('hidden');
+          moonIcon.classList.remove('hidden');
+        }
+      }
+
+      function toggleTheme() {
+        if (htmlEl.classList.contains('dark')) {
+          htmlEl.classList.remove('dark');
+          htmlEl.classList.add('light');
+          localStorage.setItem('callina_portfolio_theme', 'light');
+        } else {
+          htmlEl.classList.remove('light');
+          htmlEl.classList.add('dark');
+          localStorage.setItem('callina_portfolio_theme', 'dark');
+        }
+        updateThemeIcons();
+      }
+
+      updateThemeIcons();
+      themeToggleBtn.addEventListener('click', toggleTheme);
+
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      // Contact form logic
+      const contactForm = document.getElementById('contactForm');
+      const feedbackModal = document.getElementById('feedbackModal');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+      const feedbackModalText = document.getElementById('feedbackModalText');
+
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const senderName = document.getElementById('senderName').value;
+          feedbackModalText.textContent = `Thank you, ${senderName}! Your message has been simulated successfully. Contact details are currently withheld for privacy reasons, but thank you for exploring Callina's portfolio!`;
+          feedbackModal.classList.remove('hidden');
+          contactForm.reset();
+        });
+      }
+
+      if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', () => {
+          feedbackModal.classList.add('hidden');
+        });
+      }
+
+      feedbackModal.addEventListener('click', (e) => {
+        if (e.target === feedbackModal) {
+          feedbackModal.classList.add('hidden');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects | Callina Portfolio</title>
+  
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('callina_portfolio_theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+      } else {
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            darkBg: '#0B0F19',
+            darkText: '#F9FAFB',
+            darkCard: '#111827',
+            darkBorder: '#374151',
+            darkAccentCyan: '#38BDF8',
+            darkAccentGold: '#FBBF24',
+            lightBg: '#FFFFFF',
+            lightText: '#111827',
+            lightCard: '#F3F4F6',
+            lightBorder: '#E5E7EB',
+            lightAccentBlue: '#1D4ED8',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg-main: #FFFFFF;
+      --text-main: #111827;
+      --card-bg: #F3F4F6;
+      --card-border: #E5E7EB;
+      --accent-primary: #1D4ED8;
+      --accent-secondary: #0284C7;
+      --focus-ring: #1D4ED8;
+    }
+
+    html.dark {
+      --bg-main: #0B0F19;
+      --text-main: #F9FAFB;
+      --card-bg: #111827;
+      --card-border: #374151;
+      --accent-primary: #38BDF8;
+      --accent-secondary: #FBBF24;
+      --focus-ring: #FBBF24;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .hc-card {
+      background-color: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 12px;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .hc-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-primary);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0, 1, 0, 1), opacity 0.3s ease, padding 0.3s ease;
+      opacity: 0;
+    }
+
+    .accordion-content.open {
+      max-height: 1000px;
+      opacity: 1;
+      transition: max-height 0.4s cubic-bezier(0.5, 0, 0.5, 1), opacity 0.4s ease, padding 0.3s ease;
+    }
+
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid var(--focus-ring);
+      outline-offset: 3px;
+    }
+
+    .nav-link {
+      position: relative;
+      font-weight: 600;
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--accent-primary);
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-white">
+
+  <!-- HEADER & NAVIGATION -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-opacity-90 bg-[var(--bg-main)] border-b-2 border-[var(--card-border)] transition-colors duration-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="index.html" class="group flex items-center gap-3 text-xl font-extrabold tracking-tight focus:outline-none">
+        <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-sky-400 dark:from-sky-400 dark:to-amber-400 flex items-center justify-center text-white font-mono text-xl shadow-md transform group-hover:rotate-6 transition-transform">
+          C
+        </span>
+        <span class="text-2xl font-black tracking-wider text-[var(--text-main)]">CALLINA<span class="text-[var(--accent-primary)]">.ai</span></span>
+      </a>
+
+      <nav class="hidden md:flex items-center space-x-8" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link text-base tracking-wide transition-colors hover:text-[var(--accent-primary)]">Home</a>
+        <a href="about.html" class="nav-link text-base tracking-wide transition-colors hover:text-[var(--accent-primary)]">About</a>
+        <a href="projects.html" class="nav-link active text-base tracking-wide transition-colors hover:text-[var(--accent-primary)]">Projects</a>
+        <a href="contact.html" class="nav-link text-base tracking-wide transition-colors hover:text-[var(--accent-primary)]">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <button id="themeToggleBtn" aria-label="Toggle Theme Mode" class="p-2.5 rounded-xl border-2 border-[var(--card-border)] bg-[var(--card-bg)] hover:border-[var(--accent-primary)] transition-all flex items-center justify-center text-lg">
+          <i id="themeIconSun" class="fa-solid fa-sun text-amber-400 hidden"></i>
+          <i id="themeIconMoon" class="fa-solid fa-moon text-sky-400 hidden"></i>
+        </button>
+
+        <button id="mobileMenuBtn" aria-label="Open Navigation Menu" class="md:hidden p-2.5 rounded-xl border-2 border-[var(--card-border)] bg-[var(--card-bg)] text-xl">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="hidden md:hidden border-b-2 border-[var(--card-border)] bg-[var(--bg-main)] px-4 pt-2 pb-6 space-y-3">
+      <a href="index.html" class="block px-4 py-3 rounded-lg border-2 border-transparent font-semibold text-lg hover:bg-[var(--card-bg)]">Home</a>
+      <a href="about.html" class="block px-4 py-3 rounded-lg border-2 border-transparent font-semibold text-lg hover:bg-[var(--card-bg)]">About</a>
+      <a href="projects.html" class="block px-4 py-3 rounded-lg font-bold text-lg bg-[var(--card-bg)] text-[var(--accent-primary)]">Projects</a>
+      <a href="contact.html" class="block px-4 py-3 rounded-lg border-2 border-transparent font-semibold text-lg hover:bg-[var(--card-bg)]">Contact</a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    <section class="space-y-10">
+      <div class="border-b-2 border-[var(--card-border)] pb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 class="text-3xl sm:text-4xl font-black">Featured Projects</h1>
+          <p class="text-lg opacity-80 mt-1">Coursework Engineering & Intelligent Software Implementations</p>
+        </div>
+        <div class="text-xs font-mono px-3 py-1.5 rounded-lg border-2 border-[var(--card-border)] bg-[var(--card-bg)]">
+          <i class="fa-solid fa-layer-group text-[var(--accent-primary)] mr-1"></i> Interactive Accordion Viewer
+        </div>
+      </div>
+
+      <div class="space-y-8">
+
+        <!-- Project 1: Autonomous Smart Car -->
+        <article class="hc-card overflow-hidden">
+          <div class="p-6 sm:p-8 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="space-y-1">
+                <span class="inline-block px-3 py-1 rounded-md text-xs font-mono font-bold bg-amber-500/10 text-amber-500 border border-amber-500/30">
+                  Coursework Project
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-black">Autonomous Maze-Solving Smart Car System</h2>
+              </div>
+              <button class="accordion-toggle inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border-2 border-[var(--card-border)] bg-[var(--bg-main)] font-bold hover:border-[var(--accent-primary)] transition-colors self-start sm:self-auto" data-target="proj-1-details">
+                <span class="toggle-text">Explore Architecture ▾</span>
+              </button>
+            </div>
+
+            <p class="text-base opacity-90 leading-relaxed">
+              <strong>Purpose:</strong> Real-time maze exploration, obstacle detection, and optimal path planning without human intervention.
+            </p>
+
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span class="px-3 py-1 rounded-md text-xs font-mono border border-[var(--card-border)] bg-[var(--bg-main)]">C / C++</span>
+              <span class="px-3 py-1 rounded-md text-xs font-mono border border-[var(--card-border)] bg-[var(--bg-main)]">Wall-Following Algorithm</span>
+              <span class="px-3 py-1 rounded-md text-xs font-mono border border-[var(--card-border)] bg-[var(--bg-main)]">BFS Pathfinding</span>
+              <span class="px-3 py-1 rounded-md text-xs font-mono border border-[var(--card-border)] bg-[var(--bg-main)]">Sensor Telemetry Processing</span>
+              <span class="px-3 py-1 rounded-md text-xs font-mono border border-[var(--card-border)] bg-[var(--bg-main)]">Microcontrollers</span>
+            </div>
+
+            <!-- Collapsible Accordion -->
+            <div id="proj-1-details" class="accordion-content border-t-2 border-[var(--card-border)] pt-6 mt-6 space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-3">
+                  <h4 class="font-extrabold text-lg text-[var(--accent-primary)]">Key Contributions</h4>
+                  <ul class="space-y-2 text-sm opacity-90 list-disc list-inside">
+                    <li>Developed core software control modules implementing Wall-Following heuristics and Breadth-First Search (BFS) algorithm logic for shortest path calculation.</li>
+                    <li>Processed multi-channel ultrasonic and infrared sensor telemetry data to perform real-time collision prevention and spatial mapping.</li>
+                    <li>Integrated low-level decision execution logic directly with hardware microcontrollers (PWM motor drives and interrupt handlers).</li>
+                  </ul>
+                </div>
+
+                <div class="hc-card p-4 bg-[var(--bg-main)] space-y-3">
+                  <h4 class="font-extrabold text-sm uppercase tracking-wider text-[var(--accent-secondary)]">System Workflow Visualizer</h4>
+                  <div class="font-mono text-xs space-y-2 opacity-90">
+                    <div class="p-2 rounded border border-[var(--card-border)] bg-[var(--card-bg)]">[1] Sensor Read &rarr; Distance Telemetry</div>
+                    <div class="p-2 rounded border border-[var(--card-border)] bg-[var(--card-bg)]">[2] State Evaluation &rarr; Wall-Following / BFS</div>
+                    <div class="p-2 rounded border border-[var(--card-border)] bg-[var(--card-bg)]">[3] Motor Controller &rarr; Real-time Steering</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2: Gamified Children's Banking -->
+        <article class="hc-card overflow-hidden">
+          <div class="p-6 sm:p-8 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="space-y-1">
+                <span class="inline-block px-3 py-1 rounded-md text-xs font-mono font-bold bg-blue-500/10 text-blue-500 border border-blue-500/30">
+                  Coursework Project
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-black">Gamified Children's Banking & Reward System</h2>
+              </div>
+              <button class="accordion-toggle inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border-2 border-[var(--card-border)] bg-[var(--bg-main)] font-bold hover:border-[var(--accent-primary)] transition-colors self-start sm:self-auto" data-target="proj-2-details">
+                <span class="toggle-text">Explore Architecture ▾</span>
+              </button>
+            </div>
+
+            <p class="text-base opacity-90 leading-relaxed">
+              <strong>Purpose:</strong> Secure digital banking platform tailored for children, helping them build early financial literacy.
+            </p>
+
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span class="px-3 py-1 rounded-md text-xs font-mono border border-[var(--card-border)] bg-[var(--bg-main)]">JavaScript / Full-Stack</span>
+              <span class="px-3 py-1 rounded-md text-xs font-mono border border-[var(--card-border)] bg-[var(--bg-main)]">Secure State Management</span>
+              <span class="px-3 py-1 rounded-md text-xs font-mono border border-[var(--card-border)] bg-[var(--bg-main)]">Gamification Logic</span>
+              <span class="px-3 py-1 rounded-md text-xs font-mono border border-[var(--card-border)] bg-[var(--bg-main)]">UX Workflows</span>
+            </div>
+
+            <!-- Collapsible Accordion -->
+            <div id="proj-2-details" class="accordion-content border-t-2 border-[var(--card-border)] pt-6 mt-6 space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-3">
+                  <h4 class="font-extrabold text-lg text-[var(--accent-primary)]">Key Contributions</h4>
+                  <ul class="space-y-2 text-sm opacity-90 list-disc list-inside">
+                    <li>Implemented core financial transaction modules (deposits, savings goals, withdrawals) with atomic state updates and error handling.</li>
+                    <li>Developed an interactive gamified reward engine featuring earnable badges, point streaks, and visual saving milestones.</li>
+                    <li>Designed intuitive, accessible, kid-friendly user workflows and high-contrast feedback components to ensure safe operation.</li>
+                  </ul>
+                </div>
+
+                <div class="hc-card p-4 bg-[var(--bg-main)] space-y-3">
+                  <h4 class="font-extrabold text-sm uppercase tracking-wider text-emerald-500">Platform Feature Breakdown</h4>
+                  <div class="space-y-2 text-xs">
+                    <div class="flex justify-between items-center p-2 rounded border border-[var(--card-border)] bg-[var(--card-bg)]">
+                      <span class="font-bold">Transaction Safety</span>
+                      <span class="text-emerald-500 font-mono">Verified State</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 rounded border border-[var(--card-border)] bg-[var(--card-bg)]">
+                      <span class="font-bold">Gamification Engine</span>
+                      <span class="text-amber-500 font-mono">Badges & Goals</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 rounded border border-[var(--card-border)] bg-[var(--bg-main)]">
+                      <span class="font-bold">Child UI/UX</span>
+                      <span class="text-sky-400 font-mono">Accessible Contrast</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t-2 border-[var(--card-border)] bg-[var(--bg-main)] transition-colors duration-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="w-7 h-7 rounded-lg bg-[var(--accent-primary)] text-white font-mono text-sm font-bold flex items-center justify-center">C</span>
+        <span class="text-sm font-extrabold tracking-wide">Callina &copy; 2026–2027</span>
+      </div>
+      <p class="text-xs opacity-75 text-center sm:text-right">
+        PolyU Computer Science &bull; High-Contrast WCAG AAA Compliant Interface
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const htmlEl = document.documentElement;
+      const themeToggleBtn = document.getElementById('themeToggleBtn');
+      const sunIcon = document.getElementById('themeIconSun');
+      const moonIcon = document.getElementById('themeIconMoon');
+
+      function updateThemeIcons() {
+        const isDark = htmlEl.classList.contains('dark');
+        if (isDark) {
+          sunIcon.classList.remove('hidden');
+          moonIcon.classList.add('hidden');
+        } else {
+          sunIcon.classList.add('hidden');
+          moonIcon.classList.remove('hidden');
+        }
+      }
+
+      function toggleTheme() {
+        if (htmlEl.classList.contains('dark')) {
+          htmlEl.classList.remove('dark');
+          htmlEl.classList.add('light');
+          localStorage.setItem('callina_portfolio_theme', 'light');
+        } else {
+          htmlEl.classList.remove('light');
+          htmlEl.classList.add('dark');
+          localStorage.setItem('callina_portfolio_theme', 'dark');
+        }
+        updateThemeIcons();
+      }
+
+      updateThemeIcons();
+      themeToggleBtn.addEventListener('click', toggleTheme);
+
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      // Accordion Toggle
+      const accordionToggles = document.querySelectorAll('.accordion-toggle');
+      accordionToggles.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.getAttribute('data-target');
+          const content = document.getElementById(targetId);
+          const textSpan = btn.querySelector('.toggle-text');
+
+          if (content.classList.contains('open')) {
+            content.classList.remove('open');
+            textSpan.textContent = 'Explore Architecture ▾';
+          } else {
+            content.classList.add('open');
+            textSpan.textContent = 'Collapse Details ▴';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
